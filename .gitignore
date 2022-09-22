@@ -31,4 +31,6 @@
 *.out
 *.app
 
+# Directories
 .idea
+bin

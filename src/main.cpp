@@ -7,5 +7,7 @@
 
 int main(void) {
     std::cout << "ok" << std::endl;
+    int *a = new int[100];
+    std::cout << a << std::endl;
     return 0;
 }
