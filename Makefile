@@ -1,5 +1,6 @@
-NAME	:= ft_containers
-LNAME	:= ft_containers_leaks
+NAME	:= ft
+LNAME	:= ft_leaks
+TMPLNAME:= .leaks
 
 SRC		:= src/main.cpp
 
@@ -20,30 +21,24 @@ TICK 	:= \xE2\x9C\x94
 
 $(NAME):	dir
 			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(NAME)
-			@echo "\n\t$(GRN) $(TICK) FT_CONTAINERS compiled!$(END)\n"
+			@echo "\n\t$(GRN) $(TICK) FT compiled!$(END)\n"
 
 all:		$(NAME)
 
 dir:
 			@mkdir -p $(BIN)
 
-leaks:
+leaks:		dir
 			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(LNAME)
-			@touch .leaks
-			@leaks --atExit -- $(BIN)/$(LNAME) > .leaks
-			@export var1
-			@var1=$(cat .leaks | grep "total leaked bytes" | awk '{print $3}')
-#			ifeq ($var1, 0)
-#			@echo "\t$(GRN) $(TICK) no leaks!$(END)\n"
-#			else
-#			@echo "\t$(RED) $(TICK) leaks!$(END)\n"
-#			endif
-			if [[ $var1 -eq 0 ]]; \
-			then \
-				echo "\t$(GRN) $(TICK) no leaks!$(END)\n"; \
-			else \
-				echo "\t$(RED) $(TICK) leaks!$(END)\n"; \
-			fi
+			@-leaks --atExit -- $(BIN)/$(LNAME) > $(TMPLNAME)
+			@echo "$(YEL)" && cat $(TMPLNAME) | grep "total leaked bytes" | cut -d ' ' -f 3,4,5,6,7,8,9 && echo ""
+			@$(RM) $(TMPLNAME)
+
+#LEAKS = $(shell leaks --atExit -- $(BIN)/$(LNAME) ; echo $$?)
+#LEAKS = $(shell cat .leaks; echo $$?)
+#leaks:		LEAK_MSG = $(if $(filter $(LEAKS), 0), "\n\t$(GRN) $(TICK) ok!\n", "\n\tleaks!\n")
+#leaks:
+#			@echo $(LEAK_MSG)
 
 clean:
 			@$(RM) $(BIN)
@@ -53,4 +48,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:	 	$(NAME) all clean fclean re
+.PHONY:	 	$(NAME) all dir clean fclean re
