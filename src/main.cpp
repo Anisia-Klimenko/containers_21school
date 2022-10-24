@@ -4,10 +4,17 @@
 
 #include <iostream>
 #include "vector.h"
+#include "main.h"
+
+void printValue(std::string key, std::string value) {
+    std::cout << BLUE << key << " : " << END << value << std::endl;
+}
+
+void printError(std::string key, std::string value) {
+    std::cerr << RED << key << " : " << END << value << std::endl;
+}
 
 int main(void) {
-    std::cout << "ok" << std::endl;
-    int *a = new int[100];
-    std::cout << a << std::endl;
+
     return 0;
 }
