@@ -1,5 +1,7 @@
 NAME	:= ft
 LNAME	:= ft_leaks
+FTNAME	:= ft_test
+STLTEST	:=
 TMPLNAME:= .leaks
 
 SRC		:= src/main.cpp
