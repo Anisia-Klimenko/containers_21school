@@ -84,17 +84,17 @@ namespace ft {
         }
 
         // https://cplusplus.com/reference/iterator/reverse_iterator/operator*/
-        reference operator*() const { return *_it; }; // correct ?
+        reference operator* () const { return *_it; }; // correct ?
 
         // https://cplusplus.com/reference/iterator/reverse_iterator/operator+/
         reverse_iterator operator+ (difference_type n) const { return reverse_iterator(_it - n); };
 
         // https://cplusplus.com/reference/iterator/reverse_iterator/operator++/
-        reverse_iterator& operator++() {
+        reverse_iterator& operator++ () {
             _it--;
             return (*this);
         };
-        reverse_iterator operator++(int) {
+        reverse_iterator operator++ (int) {
             reverse_iterator temp = *this;
             ++(*this);
             return temp;
@@ -127,7 +127,7 @@ namespace ft {
         };
 
         // https://cplusplus.com/reference/iterator/reverse_iterator/operator-%3E/
-        pointer operator->() const { return &(operator*()); };
+        pointer operator-> () const { return &(operator*()); };
 
         // https://cplusplus.com/reference/iterator/reverse_iterator/operator[]/
         reference operator[] (difference_type n) const { return base()[-n - 1]; };
@@ -135,6 +135,27 @@ namespace ft {
     private:
         iterator_type _it;
     };
+
+    // https://cplusplus.com/reference/iterator/reverse_iterator/operators/
+    template <class Iterator>
+    bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) { return lhs.base() == rhs.base(); };
+    template <class Iterator>
+    bool operator!= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) { return lhs.base() != rhs.base(); };
+    template <class Iterator>
+    bool operator>= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) { return lhs.base() >= rhs.base(); };
+    template <class Iterator>
+    bool operator<= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) { return lhs.base() <= rhs.base(); };
+    template <class Iterator>
+    bool operator> (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) { return lhs.base() > rhs.base(); };
+    template <class Iterator>
+    bool operator< (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) { return lhs.base() < rhs.base(); };
+
+    // https://cplusplus.com/reference/iterator/reverse_iterator/operator_plus-free/
+    template <class Iterator>
+    reverse_iterator<Iterator> operator+ (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& rev_it) { return (rev_it + n); };
+    // https://cplusplus.com/reference/iterator/reverse_iterator/operator_minus-free/
+    template <class Iterator>
+    typename reverse_iterator<Iterator>::difference_type operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) { return (lhs.base() - rhs.base()); };
 }
 
 #endif //RANDOM_ACCESS_ITERATOR_H
