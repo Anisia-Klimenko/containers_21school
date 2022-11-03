@@ -121,9 +121,21 @@ namespace ft {
     template<bool Cond, class T = void> struct enable_if {};
     template<class T> struct enable_if<true, T> { typedef T type; };
 
+    // https://cplusplus.com/reference/type_traits/integral_constant/
+    template <class T, T v>
+    struct integral_constant {
+        static constexpr T value = v;
+        typedef T value_type;
+        typedef integral_constant<T,v> type;
+        constexpr operator T() { return v; }
+    };
 
+    // https://cplusplus.com/reference/type_traits/true_type/
     typedef integral_constant<bool, true> true_type;
+    // https://cplusplus.com/reference/type_traits/false_type/
     typedef integral_constant<bool, false> false_type;
+
+    // https://cplusplus.com/reference/type_traits/is_integral/
     template <class T> struct is_integral : false_type {};
 
     template <> struct is_integral<bool> : true_type {};
