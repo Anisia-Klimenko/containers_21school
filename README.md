@@ -18,7 +18,7 @@ Let’s re-implement them!
 - [ ] iterator_traits
 - [x] reverse_iterator
 - [x] enable_if
-- [ ] is_integral
+- [x] is_integral
 - [x] equal and/or lexicographical_compare
 - [x] pair
 - [x] make_pair
