@@ -116,6 +116,17 @@ namespace ft {
         return (first2 != last2);
     }
 
+    // https://cplusplus.com/reference/iterator/distance/
+    template<class InputIterator>
+    typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last) {
+        typename ft::iterator_traits<InputIterator>::difference_type n = 0;
+        while (first != last) {
+            first++;
+            n++;
+        }
+        return (n);
+    }
+
     // https://cplusplus.com/reference/type_traits/enable_if/?kw=enable_if
     template<bool Cond, class T = void> struct enable_if {};
     template<class T> struct enable_if<true, T> { typedef T type; };

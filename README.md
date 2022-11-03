@@ -15,7 +15,7 @@ Let’s re-implement them!
 
 ## Additional implementation
 
-- [ ] iterator_traits
+- [x] iterator_traits
 - [x] reverse_iterator
 - [x] enable_if
 - [x] is_integral
