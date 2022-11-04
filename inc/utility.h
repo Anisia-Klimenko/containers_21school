@@ -28,17 +28,10 @@ namespace ft {
             return (*this);
         };
 
-        void swap (pair& pr) noexcept ( noexcept(swap(first,pr.first)) &&
-        noexcept(swap(second,pr.second)) ) {
-            swap(first, pr.first);
-            swap(second, pr.second);
-        }
-
-        template <class T>
-        void swap ( T& a, T& b ) {
+        void swap (pair<T, T>& pr) {
             T c(a);
-            a=b;
-            b=c;
+            a = b;
+            b = c;
         }
     };
 
@@ -61,7 +54,7 @@ namespace ft {
     template <class T1, class T2>
     bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(lhs < rhs); }
 
-    template <class T1, class T2>  void swap (pair<T1,T2>& x, pair<T1,T2>& y) noexcept (noexcept(x.swap(y))) {
+    template <class T1, class T2>  void swap (pair<T1,T2>& x, pair<T1,T2>& y) {
         T1 c(x.first);
         x.first = y.first;
         y.first = c;
@@ -146,23 +139,23 @@ namespace ft {
     typedef integral_constant<bool, false> false_type;
 
     // https://cplusplus.com/reference/type_traits/is_integral/
-    template <class T> struct is_integral : false_type {};
+    template <class T> struct is_integral :                     false_type {};
 
-    template <> struct is_integral<bool> : true_type {};
-    template <> struct is_integral<char> : true_type {};
-    template <> struct is_integral<char16_t> : true_type {};
-    template <> struct is_integral<char32_t> : true_type {};
-    template <> struct is_integral<wchar_t> : true_type {};
-    template <> struct is_integral<signed char> : true_type {};
-    template <> struct is_integral<short int> : true_type {};
-    template <> struct is_integral<int> : true_type {};
-    template <> struct is_integral<long int> : true_type {};
-    template <> struct is_integral<long long int> : true_type {};
-    template <> struct is_integral<unsigned char> : true_type {};
-    template <> struct is_integral<unsigned short int> : true_type {};
-    template <> struct is_integral<unsigned int> : true_type {};
-    template <> struct is_integral<unsigned long int> : true_type {};
-    template <> struct is_integral<unsigned long long int> : true_type {};
+    template <> struct is_integral<bool> :                      true_type {};
+    template <> struct is_integral<char> :                      true_type {};
+    template <> struct is_integral<char16_t> :                  true_type {};
+    template <> struct is_integral<char32_t> :                  true_type {};
+    template <> struct is_integral<wchar_t> :                   true_type {};
+    template <> struct is_integral<signed char> :               true_type {};
+    template <> struct is_integral<short int> :                 true_type {};
+    template <> struct is_integral<int> :                       true_type {};
+    template <> struct is_integral<long int> :                  true_type {};
+    template <> struct is_integral<long long int> :             true_type {};
+    template <> struct is_integral<unsigned char> :             true_type {};
+    template <> struct is_integral<unsigned short int> :        true_type {};
+    template <> struct is_integral<unsigned int> :              true_type {};
+    template <> struct is_integral<unsigned long int> :         true_type {};
+    template <> struct is_integral<unsigned long long int> :    true_type {};
 
 }
 
