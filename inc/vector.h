@@ -130,7 +130,6 @@ namespace ft {
             if (n > max_size()) { throw std::length_error("ft::vector::reserve"); }
             if (n > _capacity && n <= max_size()) {
                 pointer prev_begin = _begin;
-                size_type prev_capacity = _capacity;
                 size_type count = 0;
 
                 _begin = _alloc.allocate(n);
@@ -150,7 +149,7 @@ namespace ft {
                         throw ;
                     }
                 }
-                _alloc.deallocate(prev_begin, prev_capacity);
+                _alloc.deallocate(prev_begin, _capacity);
                 _capacity = n;
             }
         };
@@ -158,7 +157,6 @@ namespace ft {
         void shrink_to_fit() {
             if (_capacity > size()) {
                 pointer prev_begin = _begin;
-                size_type prev_capacity = _capacity;
                 size_type size = size();
                 size_type count = 0;
 
@@ -179,13 +177,13 @@ namespace ft {
                         throw ;
                     }
                 }
-                _capacity = size;
                 count = 0;
                 while (count < size) {
                     _alloc.destroy(prev_begin + count);
                     count++;
                 }
-                _alloc.deallocate(prev_begin, prev_capacity);
+                _alloc.deallocate(prev_begin, _capacity);
+                _capacity = size;
             }
         }
 
@@ -209,6 +207,91 @@ namespace ft {
 
         value_type* data() { return _begin; };
         const value_type* data() const { return _begin; };
+
+        template <class InputIterator>
+        void assign (InputIterator first, InputIterator last) {
+            clear();
+            size_type dist = ft::distance(first, last);
+            if (_capacity < dist) { reserve(dist); }
+            while (first != last) {
+                push_back(*first);
+                first++;
+            }
+        };
+        void assign (size_type n, const value_type& val) {
+            clear();
+            if (_capacity < n) { reserve(n); }
+            for (size_type i = 0; i < n; i++) {
+                push_back(val);
+            }
+        };
+
+        void push_back (const value_type& val) {
+            if (_capacity == size()) {
+                _capacity = size() == 0 ? 1 : size() * 2;
+                reserve(_capacity);
+            }
+            _alloc.construct(_end, val);
+            _end++;
+        };
+
+        void pop_back() {
+            _alloc.destroy(_begin + size());
+            _end--;
+        };
+
+        iterator insert (iterator position, const value_type& val) {
+            size_type dist = ft::distance(position, _end);
+            if (_capacity < size() + 1) {
+                size() == 0 ? _capacity = 1 : _capacity = size() * 2;
+                reserve(_capacity);
+            }
+            for (size_type i = 0; i < dist; i++) {
+                _alloc.construct(_end - i, *(_end - i - 1));
+                _alloc.destroy(_end - i - 1);
+            }
+            _end++;
+            _alloc.construct(position, val);
+            return (_begin + dist);
+        };
+        void insert (iterator position, size_type n, const value_type& val) {
+            iterator new_position = insert(position, val);
+            for (size_type i = 0; i < n - 1; i++) {
+                new_position = insert(new_position, val);
+            }
+        };
+        template <class InputIterator>
+        void insert (iterator position, InputIterator first, InputIterator last) {
+            size_type dist = ft::distance(first, last);
+            iterator new_position = insert(position, *first);
+            first++;
+            while (first != last) {
+                new_position = insert(new_position, *first);
+                first++;
+            }
+        };
+
+        iterator erase (iterator position) {
+            if (position + 1 != _end) {
+                iterator tmp = position;
+                while (tmp != _end) {
+                    _alloc.destroy(tmp);
+                    _alloc.construct(tmp, *(tmp + 1));
+                    tmp++;
+                }
+            }
+            _alloc.destroy(_end);
+            _end--;
+            return iterator(pos);
+        };
+        iterator erase (iterator first, iterator last) {
+            iterator pos;
+            while (first != last) {
+                pos = erase(first);
+                first++;
+            }
+            return pos;
+        };
 
         allocator_type get_allocator() const { return _alloc; };
 
