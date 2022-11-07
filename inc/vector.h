@@ -108,6 +108,7 @@ namespace ft {
 
         size_type size() const { return _end - _begin; };
         size_type max_size() const { return _alloc.max_size(); };
+
         void resize (size_type n, value_type val = value_type()) {
             if (n < size()) {
                 pointer tmp = _begin + n;
@@ -121,13 +122,14 @@ namespace ft {
                 // insert (?)
             }
         };
+
         size_type & capacity() const { return _capacity; };
         bool empty() const { return (size() == 0); };
+
         void reserve (size_type n) {
             if (n > max_size()) { throw std::length_error("ft::vector::reserve"); }
             if (n > _capacity && n <= max_size()) {
                 pointer prev_begin = _begin;
-                pointer prev_end = _end;
                 size_type prev_capacity = _capacity;
                 size_type count = 0;
 
@@ -147,11 +149,66 @@ namespace ft {
                         _alloc.deallocate(_begin, _capacity);
                         throw ;
                     }
-                    _alloc.deallocate(prev_begin, prev_capacity);
                 }
+                _alloc.deallocate(prev_begin, prev_capacity);
                 _capacity = n;
             }
         };
+
+        void shrink_to_fit() {
+            if (_capacity > size()) {
+                pointer prev_begin = _begin;
+                size_type prev_capacity = _capacity;
+                size_type size = size();
+                size_type count = 0;
+
+                _begin = _alloc.allocate(size);
+                _end = _begin;
+                while (count < size) {
+                    try {
+                        _alloc.construct(_end, *(prev_begin + count));
+                        _end++;
+                        count++;
+                    } catch (...) {
+                        pointer tmp = _begin;
+                        while (tmp != _end) {
+                            _alloc.destroy(tmp);
+                            tmp++;
+                        }
+                        _alloc.deallocate(_begin, _capacity);
+                        throw ;
+                    }
+                }
+                _capacity = size;
+                count = 0;
+                while (count < size) {
+                    _alloc.destroy(prev_begin + count);
+                    count++;
+                }
+                _alloc.deallocate(prev_begin, prev_capacity);
+            }
+        }
+
+        reference operator[] (size_type n) { return *(_begin + n); };
+        const_reference operator[] (size_type n) const { return *(_begin + n); };
+
+        reference at (size_type n) {
+            if (n >= size()) { throw std::out_of_range("ft::vector::at"); }
+            return (*this[n]);
+        };
+        const_reference at (size_type n) const {
+            if (n >= size()) { throw std::out_of_range("ft::vector::at"); }
+            return (*this[n]);
+        };
+
+        reference front() { return *_begin; };
+        const_reference front() const { return *_begin; };
+
+        reference back() { return *(_end - 1); };
+        const_reference back() const { return *(_end - 1); };
+
+        value_type* data() { return _begin; };
+        const value_type* data() const { return _begin; };
 
         allocator_type get_allocator() const { return _alloc; };
 
@@ -169,7 +226,6 @@ namespace ft {
         pointer         _begin;
         pointer         _end;
         size_type       _capacity;
-//        size_t _capacity;
     };
 }
 
