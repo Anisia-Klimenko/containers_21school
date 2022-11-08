@@ -293,7 +293,12 @@ namespace ft {
             return pos;
         };
 
-        allocator_type get_allocator() const { return _alloc; };
+        void swap (vector& x) {
+            ft::swap(_begin, x._begin);
+            ft::swap(_end, x._end);
+            ft::swap(_capacity, x._capacity);
+            ft::swap(_alloc, x._alloc);
+        }
 
         void clear(void) {
             size_type size = size();
@@ -303,6 +308,7 @@ namespace ft {
             }
         }
 
+        allocator_type get_allocator() const { return _alloc; };
 
     private:
         allocator_type  _alloc;
@@ -310,6 +316,30 @@ namespace ft {
         pointer         _end;
         size_type       _capacity;
     };
+
+    template <class T, class Alloc>
+    bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+        if (lhs.size() != rhs.size()) { return false; }
+        return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+    }
+
+    template <class T, class Alloc>
+    bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return !(lhs == rhs); }
+
+    template <class T, class Alloc>
+    bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
+
+    template <class T, class Alloc>
+    bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return !(rhs < lhs); }
+
+    template <class T, class Alloc>
+    bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return (rhs < lhs); }
+
+    template <class T, class Alloc>
+    bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) { return !(lhs < rhs); }
+
+    template <class T, class Alloc>
+    void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) { x.swap(y); }
 }
 
 #endif //VECTOR_H

@@ -43,18 +43,18 @@ namespace ft {
     bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(lhs == rhs); }
 
     template <class T1, class T2>
-    bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second); }
+    bool operator< (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second); }
 
     template <class T1, class T2>
     bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(rhs < lhs); }
 
     template <class T1, class T2>
-    bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return rhs < lhs; }
+    bool operator> (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return rhs < lhs; }
 
     template <class T1, class T2>
     bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(lhs < rhs); }
 
-    template <class T1, class T2>  void swap (pair<T1,T2>& x, pair<T1,T2>& y) {
+    template <class T1, class T2> void swap (pair<T1,T2>& x, pair<T1,T2>& y) {
         T1 c(x.first);
         x.first = y.first;
         y.first = c;
@@ -67,10 +67,18 @@ namespace ft {
     template <class T1,class T2>
     pair<T1,T2> make_pair (T1 x, T2 y) { return ( pair<T1,T2>(x,y) ); }
 
+    // https://cplusplus.com/reference/utility/swap/
+    template <class T>
+    void swap ( T& a, T& b ) {
+        T c(a);
+        a = b;
+        b = c;
+    }
+
     // https://cplusplus.com/reference/algorithm/equal/?kw=equal
     template <class InputIterator1, class InputIterator2>
     bool equal (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2) {
-        while (first1!=last1) {
+        while (first1 != last1) {
             if (!(*first1 == *first2)) return false;
             ++first1;
             ++first2;
@@ -79,8 +87,8 @@ namespace ft {
     }
     template <class InputIterator1, class InputIterator2, class BinaryPredicate>
     bool equal (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred) {
-        while (first1!=last1) {
-            if (!pred(*first1,*first2)) return false;
+        while (first1 != last1) {
+            if (!pred(*first1, *first2)) return false;
             ++first1;
             ++first2;
         }
