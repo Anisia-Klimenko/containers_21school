@@ -1,4 +1,4 @@
-NAME	:= ft
+NAME	:= ft_containers
 LNAME	:= ft_leaks
 FTNAME	:= ft_test
 STLNAME	:= stl_test
@@ -26,10 +26,13 @@ END		= \033[0m
 all:		$(NAME)
 
 $(NAME):	dir
-			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(NAME)
+			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(NAME) -D TERM
 			@printf "%-50.40s\r\n"
 			@printf "%-38.38s\r\t$(YELLOW)$(TICK)$(GRN) $(NAME) was compiled!$(END)\n\n"
-			@echo "\t$(BLUE)Usage: make test\n"
+			@echo "\t$(BLUE)Usage:"
+			@echo "\t\t$(BLUE)make test $(END)run tests for comparison ft:: and std:: containers"
+			@echo "\t\t$(BLUE)make ft   $(END)show tests results of ft:: containers test"
+			@echo "\t\t$(BLUE)make stl  $(END)show tests results of std:: containers test\n"
 
 dir:
 			@mkdir -p $(BIN)
@@ -47,9 +50,17 @@ test:		dir
 			@$(BIN)/$(FTNAME) > $(TEST)/$(FTNAME)
 			@$(BIN)/$(STLNAME) > $(TEST)/$(STLNAME)
 			@echo "\n\t$(YELLOW)Test results:$(END)\n"
-			@printf "$(GRN)\t$(TICK) Files are identical, test passed$(END)"
+			@printf "$(GRN)\t$(TICK) Test results for ft:: and std:: are identical, test passed$(END)"
 			@printf "%-50.40s\r$(RED)" && diff $(TEST)/$(FTNAME) $(TEST)/$(STLNAME)
 			@echo "\n"
+
+ft:
+			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(FTNAME) -D TERM
+			@./$(BIN)/$(FTNAME)
+
+stl:
+			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(STLNAME) -D TERM -D STL
+			@./$(BIN)/$(STLNAME)
 
 clean:
 			@$(RM) $(BIN)
