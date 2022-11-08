@@ -7,8 +7,8 @@
 
 #ifndef nullptr
 #define nullptr 0
-#else
-#error "nullptr defined already"
+//#else
+//#error "nullptr defined already"
 #endif
 
 #include <iostream>

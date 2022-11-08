@@ -10,7 +10,7 @@ INC		:= inc
 BIN		:= bin
 TEST	:= test
 
-GCC		:= g++
+GCC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98 -I $(INC)
 
 RM		:= rm -rf

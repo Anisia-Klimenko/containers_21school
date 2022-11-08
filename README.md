@@ -63,3 +63,58 @@ Let’s re-implement them!
 - [x] equal and/or lexicographical_compare
 - [x] pair
 - [x] make_pair
+
+## Tests
+
+- [ ] vector
+  - [ ] member functions
+    - [ ] constructors
+    - [ ] destructor
+    - [ ] operator=
+    - [ ] iterators
+      - [x] begin
+      - [x] end
+      - [ ] rbegin
+      - [ ] rend
+      - [ ] cbegin (c++11)
+      - [ ] cend (c++11)
+      - [ ] crbegin (c++11)
+      - [ ] crend (c++11)
+    - [ ] capacity
+      - [x] size
+      - [ ] max_size
+      - [ ] resize
+      - [ ] capacity
+      - [ ] empty
+      - [ ] reserve
+      - [ ] shrink_to_fit (c++11)
+    - [ ] element access
+      - [ ] operator[]
+      - [ ] at
+      - [ ] front
+      - [ ] back
+      - [ ] data
+    - [ ] modifiers
+      - [ ] assign
+      - [ ] push_back
+      - [ ] pop_back
+      - [ ] insert
+      - [ ] erase
+      - [ ] swap
+      - [ ] clear
+    - [ ] allocator
+      - [ ] get_allocator
+    - [ ] non-member functions overloads
+      - [ ] relational operators
+      - [ ] swap
+
+- [ ] map
+- [ ] stack
+
+- [ ] iterator_traits
+- [ ] reverse_iterator
+- [ ] enable_if
+- [ ] is_integral
+- [ ] equal and/or lexicographical_compare
+- [ ] pair
+- [ ] make_pair

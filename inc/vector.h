@@ -52,7 +52,7 @@ namespace ft {
             }
         }
         template <class InputIterator>
-        vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {
+        vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
 //            difference_type n = ft::distance(first, last);
             difference_type n = last - first;
             _begin = _alloc.allocate(n);
@@ -75,7 +75,8 @@ namespace ft {
             }
         }
         vector (const vector& x) : _alloc(x._alloc), _begin(nullptr), _end(nullptr), _capacity(0) {
-            // insert (?)
+            insert(_begin, x._begin, x._end);
+            _capacity = x._capacity;
         }
         ~vector() {
             clear();
@@ -85,8 +86,9 @@ namespace ft {
         vector& operator= (const vector& x) {
             if (*this == x) { return *this; }
             clear();
-//            pointer copy = _alloc.allocate(x._capacity);
-            // insert (?)
+            insert(_begin, x._begin, x._end);
+            _capacity = x._capacity;
+            return *this;
         }
 
         iterator begin() { return _begin; };
@@ -118,13 +120,13 @@ namespace ft {
                     tmp++;
                 }
             } else if (n > max_size()) {
-                throw std::bad_alloc("ft::vector::resize");
+                throw std::bad_alloc();
             } else if (n > size() && n <= max_size()) {
-                // insert (?)
+                insert(_end, n - size(), val);
             }
         };
 
-        size_type & capacity() const { return _capacity; };
+        size_type capacity() const { return _capacity; };
         bool empty() const { return (size() == 0); };
 
         void reserve (size_type n) {
@@ -266,7 +268,7 @@ namespace ft {
         template <class InputIterator>
         void insert (iterator position, InputIterator first, InputIterator last) {
 //            size_type dist = ft::distance(first, last);
-            size_type dist = last - first;
+//            size_type dist = last - first;
             iterator new_position = insert(position, *first);
             first++;
             while (first != last) {
@@ -305,7 +307,7 @@ namespace ft {
         }
 
         void clear(void) {
-            size_type size = size();
+            size_type size = this->size();
             for (size_type i = 0; i < size; i++) {
                 _end--;
                 _alloc.destroy(_end);
