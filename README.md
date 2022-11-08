@@ -15,10 +15,10 @@ Let’s re-implement them!
       - [x] end
       - [x] rbegin
       - [x] rend
-      - [x] cbegin
-      - [x] cend
-      - [x] crbegin
-      - [x] crend
+      - [x] cbegin (c++11)
+      - [x] cend (c++11)
+      - [x] crbegin (c++11)
+      - [x] crend (c++11)
     - [x] capacity
       - [x] size
       - [x] max_size
@@ -26,7 +26,7 @@ Let’s re-implement them!
       - [x] capacity
       - [x] empty
       - [x] reserve
-      - [x] shrink_to_fit
+      - [x] shrink_to_fit (c++11)
     - [x] element access
       - [x] operator[]
       - [x] at
