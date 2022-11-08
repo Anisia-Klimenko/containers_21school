@@ -5,7 +5,15 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#ifndef nullptr
+#define nullptr 0
+#else
+#error "nullptr defined already"
+#endif
+
 #include <iostream>
+#include <stddef.h>
+#include "iterator.h"
 
 namespace ft {
     template <class T1, class T2>
@@ -27,12 +35,6 @@ namespace ft {
             second = pr.second;
             return (*this);
         };
-
-        void swap (pair<T, T>& pr) {
-            T c(a);
-            a = b;
-            b = c;
-        }
     };
 
     // https://cplusplus.com/reference/utility/pair/operators/
@@ -118,15 +120,15 @@ namespace ft {
     }
 
     // https://cplusplus.com/reference/iterator/distance/
-    template<class InputIterator>
-    typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last) {
-        typename ft::iterator_traits<InputIterator>::difference_type n = 0;
-        while (first != last) {
-            first++;
-            n++;
-        }
-        return (n);
-    }
+//    template<class InputIterator>
+//    typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last) {
+//        typename ft::iterator_traits<InputIterator>::difference_type n = 0;
+//        while (first != last) {
+//            first++;
+//            n++;
+//        }
+//        return (n);
+//    }
 
     // https://cplusplus.com/reference/type_traits/enable_if/?kw=enable_if
     template<bool Cond, class T = void> struct enable_if {};
@@ -135,10 +137,9 @@ namespace ft {
     // https://cplusplus.com/reference/type_traits/integral_constant/
     template <class T, T v>
     struct integral_constant {
-        static constexpr T value = v;
+        static const T value = v;
         typedef T value_type;
         typedef integral_constant<T,v> type;
-        constexpr operator T() { return v; }
     };
 
     // https://cplusplus.com/reference/type_traits/true_type/
@@ -151,8 +152,6 @@ namespace ft {
 
     template <> struct is_integral<bool> :                      true_type {};
     template <> struct is_integral<char> :                      true_type {};
-    template <> struct is_integral<char16_t> :                  true_type {};
-    template <> struct is_integral<char32_t> :                  true_type {};
     template <> struct is_integral<wchar_t> :                   true_type {};
     template <> struct is_integral<signed char> :               true_type {};
     template <> struct is_integral<short int> :                 true_type {};

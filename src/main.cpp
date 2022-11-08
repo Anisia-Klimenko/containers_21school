@@ -15,6 +15,10 @@ void printError(std::string key, std::string value) {
 }
 
 int main(void) {
-
+#ifdef STL
+    std::cout << "STL" << std::endl;
+#else
+    std::cout << "NO STL" << std::endl;
+#endif
     return 0;
 }

@@ -6,6 +6,8 @@
 #define ITERATOR_H
 
 #include <iostream>
+#include <cstddef>
+#include "utility.h"
 
 namespace ft {
     // https://cplusplus.com/reference/iterator/iterator/
@@ -40,22 +42,22 @@ namespace ft {
     template <class T>
     class iterator_traits<T*> {
     public:
-        typedef typename ptrdiff_t                      difference_type;
-        typedef typename T                              value_type;
-        typedef typename T*                             pointer;
-        typedef typename T&                             reference;
-        typedef typename ft::random_access_iterator_tag iterator_category;
+        typedef ptrdiff_t                      difference_type;
+        typedef T                              value_type;
+        typedef T*                             pointer;
+        typedef T&                             reference;
+        typedef ft::random_access_iterator_tag iterator_category;
     };
 
     // https://cplusplus.com/reference/iterator/iterator_traits/
     template <class T>
     class iterator_traits<const T*> {
     public:
-        typedef typename ptrdiff_t                      difference_type;
-        typedef typename T                              value_type;
-        typedef typename const T*                       pointer;
-        typedef typename const T&                       reference;
-        typedef typename ft::random_access_iterator_tag iterator_category;
+        typedef ptrdiff_t                      difference_type;
+        typedef T                              value_type;
+        typedef const T*                       pointer;
+        typedef const T&                       reference;
+        typedef ft::random_access_iterator_tag iterator_category;
     };
 
     template <typename T>

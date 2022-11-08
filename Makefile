@@ -1,13 +1,14 @@
 NAME	:= ft
 LNAME	:= ft_leaks
 FTNAME	:= ft_test
-STLTEST	:=
+STLNAME	:= stl_test
 TMPLNAME:= .leaks
 
 SRC		:= src/main.cpp
 
 INC		:= inc
 BIN		:= bin
+TEST	:= test
 
 GCC		:= g++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98 -I $(INC)
@@ -39,11 +40,20 @@ leaks:		dir
 			@echo "$(YELLOW)" && cat $(TMPLNAME) | grep "total leaked bytes" | cut -d ' ' -f 3,4,5,6,7,8,9 && echo ""
 			@$(RM) $(TMPLNAME)
 
-test:		all
-			@./bin/ft
+test:		dir
+			@mkdir -p $(TEST)
+			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(FTNAME)
+			@$(GCC) $(FLAGS) $(SRC) -o $(BIN)/$(STLNAME) -D STL
+			@$(BIN)/$(FTNAME) > $(TEST)/$(FTNAME)
+			@$(BIN)/$(STLNAME) > $(TEST)/$(STLNAME)
+			@echo "\n\t$(YELLOW)Test results:$(END)\n"
+			@printf "$(GRN)\t$(TICK) Files are identical, test passed$(END)"
+			@printf "%-50.40s\r$(RED)" && diff $(TEST)/$(FTNAME) $(TEST)/$(STLNAME)
+			@echo "\n"
 
 clean:
 			@$(RM) $(BIN)
+			@$(RM) $(TEST)
 			@echo "\t$(GRN)$(TICK) $(NAME) was cleaned!$(END)"
 
 fclean:		clean

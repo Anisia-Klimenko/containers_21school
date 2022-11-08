@@ -12,7 +12,7 @@
 
 namespace ft {
 
-    template <typename T, typename Alloc = std::allocator<T>>
+    template < typename T, typename Alloc = std::allocator<T> >
     class vector {
 
     public:
@@ -53,13 +53,14 @@ namespace ft {
         }
         template <class InputIterator>
         vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {
-            difference_type n = ft::distance(first, last);
+//            difference_type n = ft::distance(first, last);
+            difference_type n = last - first;
             _begin = _alloc.allocate(n);
             _capacity = n;
             _end = _begin;
             while (first != last) {
                 try {
-                    _alloc.construct(_end, val);
+                    _alloc.construct(_end, *first);
                     _end++;
                     first++;
                 } catch (...) {
@@ -78,7 +79,7 @@ namespace ft {
         }
         ~vector() {
             clear();
-            _allocator.deallocate(_begin, capacity());
+            _alloc.deallocate(_begin, capacity());
         }
 
         vector& operator= (const vector& x) {
@@ -94,10 +95,10 @@ namespace ft {
         iterator end() { return _end; };
         const_iterator end() const { return const_iterator(_end); };
 
-        reverse_iterator rbegin() { return reverse_iterator(_begin + size() - 1)};
+        reverse_iterator rbegin() { return reverse_iterator(_begin + size() - 1); };
         const_reverse_iterator rbegin() const { return const_reverse_iterator(_begin + size() - 1); };
 
-        reverse_iterator rend() { return reverse_iterator(_begin - 1)};
+        reverse_iterator rend() { return reverse_iterator(_begin - 1); };
         const_reverse_iterator rend() const { return const_reverse_iterator(_begin - 1); };
 
         // without noexept (c++11)
@@ -138,7 +139,7 @@ namespace ft {
                     try {
                         _alloc.construct(_end, *(prev_begin + count));
                         _end++;
-                        count++
+                        count++;
                     } catch (...) {
                         pointer tmp = _begin;
                         while (tmp != _end) {
@@ -211,7 +212,8 @@ namespace ft {
         template <class InputIterator>
         void assign (InputIterator first, InputIterator last) {
             clear();
-            size_type dist = ft::distance(first, last);
+//            size_type dist = ft::distance(first, last);
+            size_type dist = last - first;
             if (_capacity < dist) { reserve(dist); }
             while (first != last) {
                 push_back(*first);
@@ -241,7 +243,8 @@ namespace ft {
         };
 
         iterator insert (iterator position, const value_type& val) {
-            size_type dist = ft::distance(position, _end);
+//            size_type dist = ft::distance(position, _end);
+            size_type dist = _end - position;
             if (_capacity < size() + 1) {
                 size() == 0 ? _capacity = 1 : _capacity = size() * 2;
                 reserve(_capacity);
@@ -262,7 +265,8 @@ namespace ft {
         };
         template <class InputIterator>
         void insert (iterator position, InputIterator first, InputIterator last) {
-            size_type dist = ft::distance(first, last);
+//            size_type dist = ft::distance(first, last);
+            size_type dist = last - first;
             iterator new_position = insert(position, *first);
             first++;
             while (first != last) {
@@ -282,7 +286,7 @@ namespace ft {
             }
             _alloc.destroy(_end);
             _end--;
-            return iterator(pos);
+            return iterator(position);
         };
         iterator erase (iterator first, iterator last) {
             iterator pos;
