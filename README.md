@@ -62,23 +62,23 @@ Let’s re-implement them!
 
 - [ ] vector
   - [ ] member functions
-    - [ ] constructors
-    - [ ] destructor
-    - [ ] operator=
-    - [ ] iterators
+    - [x] constructors
+    - [x] destructor
+    - [x] operator=
+    - [x] iterators
       - [x] begin
       - [x] end
-      - [ ] rbegin
-      - [ ] rend
-    - [ ] capacity
+      - [x] rbegin
+      - [x] rend
+    - [x] capacity
       - [x] size
-      - [ ] max_size
-      - [ ] resize
-      - [ ] capacity
-      - [ ] empty
-      - [ ] reserve
+      - [x] max_size
+      - [x] resize
+      - [x] capacity
+      - [x] empty
+      - [x] reserve
     - [ ] element access
-      - [ ] operator[]
+      - [x] operator[]
       - [ ] at
       - [ ] front
       - [ ] back

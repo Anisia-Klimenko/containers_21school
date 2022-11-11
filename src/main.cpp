@@ -70,8 +70,8 @@ int main(void) {
 //    }
 
     ft::vector<std::string> vec;
+    std::cout << "Creating empty vector\nIs empty?\n" << vec.empty() << std::endl;
     vec.push_back("frog");
-    printValue("here", "main");
     vec.push_back("toad");
     vec.push_back("hamburger");
     vec.push_back("caffeine");
@@ -238,6 +238,16 @@ int main(void) {
     for (; it != ve.end(); it++)
         std::cout << " - " << *it << std::endl << std::endl;
 
+    std::cout << "New vector created from previous using iterators" << std::endl;
+    ft::vector<std::string> vect(ve.begin() + 1, ve.end() - 1);
+    it = vect.begin();
+    for (; it != vect.end(); it++)
+        std::cout << " - " << *it << std::endl;
+    std::cout << "New vector as a copy" << std::endl;
+    ft::vector<std::string> vector(vect);
+    it = vector.begin();
+    for (; it != vector.end(); it++)
+        std::cout << " - " << *it << std::endl;
 
 //    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
 //    printValue("first", a.first);
