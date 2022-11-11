@@ -218,6 +218,13 @@ int main(void) {
     std::cout << "Capacity after using reserve(42)" << std::endl;
     vec.reserve(42);
     std::cout << " - " << vec.capacity() << std::endl;
+    it = vec.begin();
+    for (; it != vec.end(); it++)
+        std::cout << " - " << *it << std::endl;
+    std::cout << "Old vector" << std::endl;
+    it = vec.begin();
+    for (; it != vec.end(); it++)
+        std::cout << " - " << *it << std::endl;
     ft::vector<std::string> ve = vec;
     ve[0] = "toad";
     ve[2] = "borgor";

@@ -86,7 +86,7 @@ namespace ft {
             if (*this == x) { return *this; }
             clear();
             insert(_begin, x._begin, x._end);
-            _capacity = x._capacity;
+//            _capacity = x._capacity;
             return *this;
         }
 
@@ -107,10 +107,10 @@ namespace ft {
 
         void resize (size_type n, value_type val = value_type()) {
             if (n < size()) {
-                pointer tmp = _begin + n;
-                while (tmp != _end) {
-                    _alloc.destroy(tmp);
-                    tmp++;
+//                pointer tmp = _begin + n;
+                while (_end != _begin + n) {
+                    _alloc.destroy(_end);
+                    _end--;
                 }
             } else if (n > max_size()) {
                 throw std::bad_alloc();
@@ -126,11 +126,12 @@ namespace ft {
             if (n > max_size()) { throw std::length_error("ft::vector::reserve"); }
             if (n > _capacity && n <= max_size()) {
                 pointer prev_begin = _begin;
+                pointer prev_end = _end;
                 size_type count = 0;
 
                 _begin = _alloc.allocate(n);
                 _end = _begin;
-                while (count < n) {
+                while (prev_begin + count != prev_end) {
                     try {
                         _alloc.construct(_end, *(prev_begin + count));
                         _end++;
@@ -148,7 +149,6 @@ namespace ft {
                 _alloc.deallocate(prev_begin, _capacity);
                 _capacity = n;
             }
-            printValue("here", "reserve");
         };
 
         reference operator[] (size_type n) { return *(_begin + n); };
@@ -172,7 +172,6 @@ namespace ft {
         template <class InputIterator>
         void assign (InputIterator first, InputIterator last) {
             clear();
-//            size_type dist = ft::distance(first, last);
             size_type dist = last - first;
             if (_capacity < dist) { reserve(dist); }
             while (first != last) {
@@ -190,15 +189,10 @@ namespace ft {
 
         void push_back (const value_type& val) {
             if (_capacity == this->size()) {
-                _capacity = this->size() == 0 ? 1 : this->size() * 2;
-                reserve(_capacity);
+                size_type new_capacity = this->size() == 0 ? 1 : this->size() * 2;
+                reserve(new_capacity);
             }
-            printValue("here", "push_back");
-            try {
-                _alloc.construct(_end, val);
-            } catch (...) {
-                printValue("here", "caught");
-            }
+            _alloc.construct(_end, val);
             _end++;
         };
 
@@ -235,11 +229,6 @@ namespace ft {
             return iterator(_begin + pos);
         };
         void insert (iterator position, size_type n, const value_type& val) {
-//            iterator new_position = this->insert(position, val);
-//            for (size_type i = 0; i < n - 1; i++) {
-//                new_position = this->insert(new_position, val);
-//            }
-
             if (n == 0) { return; }
             if (n + this->size() > this->max_size()) { throw std::length_error("vector::insert"); }
             size_type pos = &(*position) - _begin;
