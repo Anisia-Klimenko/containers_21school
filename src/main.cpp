@@ -10,249 +10,218 @@ namespace ft = std;
 #endif
 
 #include <iostream>
+#include <sstream>
 #include "main.h"
 
 #if defined(TERM) && defined(STL)
-template <typename T>
-void printValue(std::string key, T value) { std::cout << GRN << key << " : " << END << value << std::endl; }
+void printTitle(std::string TITLE, std::string key, T value) { std::cout << YELLOW << "[ " << TITLE << " ] " << END << std::endl; }
 void printValue(std::string key, std::string value) { std::cout << GRN << key << " : " << END << value << std::endl; }
-template <typename T>
-void printValue(std::string TITLE, std::string key, T value) { std::cout << YELLOW << "[ " << TITLE << " ] " << GRN << key << END << " " << value << std::endl; }
-template <typename T>
-void printError(std::string key, T value) { std::cerr << RED << key << " : " << END << value << std::endl; }
+void printError(std::string key, std::string value) { std::cerr << RED << key << " : " << END << value << std::endl; }
 #elif TERM
-template <typename T>
-void printValue(std::string key, T value) { std::cout << BLUE << key << " : " << END << value << std::endl; }
 void printValue(std::string key, std::string value) { std::cout << BLUE << key << " : " << END << value << std::endl; }
-template <typename T>
-void printValue(std::string TITLE, std::string key, T value) { std::cout << YELLOW << "[ " << TITLE << " ] " << BLUE << key << END << " " << value << std::endl; }
-template <typename T>
-void printError(std::string key, T value) { std::cerr << RED << key << " : " << END << value << std::endl; }
+void printTitle(std::string TITLE) { std::cout << YELLOW << "[ " << TITLE << " ] " << END << std::endl; }
+void printError(std::string key, std::string value) { std::cerr << RED << key << " : " << END << value << std::endl; }
 #else
-template <typename T>
-void printValue(std::string key, T value) { std::cout << key << " : " << value << std::endl; }
 void printValue(std::string key, std::string value) { std::cout << key << " : " << value << std::endl; }
-template <typename T>
-void printValue(std::string TITLE, std::string key, T value) { std::cout << "[ " << TITLE << " ] " << key << " : " << value << std::endl; }
-template <typename T>
-void printError(std::string key, T value) { std::cerr << "[ ERROR ] : " << key << " : " << END << value << std::endl; }
+void printTitle(std::string TITLE) { std::cout << "[ " << TITLE << " ] " << std::endl; }
+void printError(std::string key, std::string value) { std::cerr << "[ ERROR ] : " << key << " : " << END << value << std::endl; }
 #endif
 
+template <typename T>
+std::string vecToString(ft::vector<T> vec) {
+    std::ostringstream out;
+    typename ft::vector<T>::iterator it = vec.begin();
+    for (; it != vec.end(); it++) { out << " - " << *it; }
+    return out.str();
+}
 
-int main(void) {
-//    int count = 0;
-//
-//    ft::vector<int> vec1;
-//    printValue("EMPTY VECTOR vec1", "size", vec1.size());
-//
-//    ft::vector<char> vec2(5, 'a');
-//    printValue("VECTOR SIZE 5 VAL 'a' vec2(5, 'a')", "size", vec2.size());
-//    for (ft::vector<char>::const_iterator it = vec2.begin(); it != vec2.end(); it++) {
-//        printValue("elem " + std::to_string(count), *it);
-//        count++;
-//    }
-//
-//    count = 0;
-//    ft::vector<char> vec3(vec2.begin(), vec2.end() - 1);
-//    printValue("VECTOR SIZE 4 VAL 'a' via iterator constructor vec3(vec2.begin(), vec2.end() - 1)", "size", vec3.size());
-//    for (ft::vector<char>::const_iterator it = vec3.begin(); it != vec3.end(); it++) {
-//        printValue("elem " + std::to_string(count), *it);
-//        count++;
-//    }
-//
-//    printValue("distance", ft::distance(vec2.begin(), vec2.end()));
-//    count = 0;
-//    ft::vector<char> vec4(vec3);
-//    printValue("VECTOR SIZE 4 VAL 'a' vec4(vec3)", "size", vec4.size());
-//    for (ft::vector<char>::const_iterator it = vec4.begin(); it != vec4.end(); it++) {
-//        printValue("elem " + std::to_string(count), *it);
-//        count++;
-//    }
-
+void testVector() {
     ft::vector<std::string> vec;
-    std::cout << "Creating empty vector\nIs empty?\n" << vec.empty() << std::endl;
+    printTitle("creating empty vector");
+    printValue("is empty?", std::to_string(vec.empty()));
     vec.push_back("frog");
     vec.push_back("toad");
     vec.push_back("hamburger");
     vec.push_back("caffeine");
     vec.push_back("pizza");
-    std::cout << "Creating vector, pushing some elements and\niterating with iterator" << std::endl;
+    printTitle("pushing some elements and iterating with iterator");
     ft::vector<std::string>::iterator it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Iterating again but this time with const iterator" << std::endl;
+    for (; it != vec.end(); it++) {
+        std::cout << " - " << *it;
+    }
+    std::cout << std::endl;
+
+    printTitle("iterating with const iterator");
     ft::vector<std::string>::const_iterator cit = vec.begin();
-    for (; cit != vec.end(); cit++)
-        std::cout << " - " << *cit << std::endl;
-    std::cout << "Comparing the two iterators (should be the same)" << std::endl;
-    std::cout << " - it == cit: " << (it == cit) << std::endl;
-    std::cout << " - it > cit: " << (it > cit) << std::endl;
-    std::cout << " - it < cit: " << (it < cit) << std::endl;
-    std::cout << " - it >= cit: " << (it >= cit) << std::endl;
-    std::cout << " - it <= cit: " << (it <= cit) << std::endl;
-    it = vec.begin();
-    std::cout << "Comparing the two iterators (should be different)" << std::endl;
-    std::cout << " - it == cit: " << (it == cit) << std::endl;
-    std::cout << " - it > cit: " << (it > cit) << std::endl;
-    std::cout << " - it < cit: " << (it < cit) << std::endl;
-    std::cout << " - it >= cit: " << (it >= cit) << std::endl;
-    std::cout << " - it <= cit: " << (it <= cit) << std::endl;
-    std::cout << "Printing third element using begin + 2" << std::endl;
-    std::cout << " - " << *(it + 2) << std::endl;
-    std::cout << "Printing third element using operator[]" << std::endl;
-    std::cout << " - " << it[2] << std::endl;
-    std::cout << "Iterating with reverse_iterators" << std::endl;
+    for (; cit != vec.end(); cit++) {
+        std::cout << " - " << *cit;
+    }
+    std::cout << std::endl;
+
+    printTitle("iterating with reverse_iterators");
     ft::vector<std::string>::reverse_iterator rit = vec.rbegin();
-    for (; rit != vec.rend(); rit++)
-        std::cout << " - " << *rit << std::endl;
-    std::cout << "Comparing reverse iterator with const_reverse_iterator\n(should be different)" << std::endl;
+    for (; rit != vec.rend(); rit++) {
+        std::cout << " - " << *rit;
+    }
+    std::cout << std::endl;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("comparing the two iterators (should be the same)");
+    printValue("it == cit", std::to_string(it == cit));
+    printValue("it > cit ", std::to_string(it > cit));
+    printValue("it < cit ", std::to_string(it < cit));
+    printValue("it >= cit", std::to_string(it >= cit));
+    printValue("it <= cit", std::to_string(it <= cit));
+
+    printTitle("comparing reverse iterator with const_reverse_iterator (should be different)");
     ft::vector<std::string>::const_reverse_iterator crit = vec.rbegin();
-    std::cout << " - crit == rit: " << (crit == rit) << std::endl;
-    std::cout << " - crit != rit: " << (crit != rit) << std::endl;
-    std::cout << " - crit >= rit: " << (crit >= rit) << std::endl;
-    std::cout << " - crit <= rit: " << (crit <= rit) << std::endl;
-    std::cout << " - crit > rit: " << (crit > rit) << std::endl;
-    std::cout << " - crit < rit: " << (crit < rit) << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "Vector after pushing 3 new objects" << std::endl;
+    printValue("rit == crit", std::to_string(rit == crit));
+    printValue("rit > crit ", std::to_string(rit > crit));
+    printValue("rit < crit ", std::to_string(rit < crit));
+    printValue("rit >= crit", std::to_string(rit >= crit));
+    printValue("rit <= crit", std::to_string(rit <= crit));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    it = vec.begin();
+    printTitle("access elements");
+    printValue("third element using *(begin + 2)", *(it + 2));
+    printValue("third element using operator[]", it[2]);
+    printValue("return value of front()", vec.front());
+    printValue("return value of back()", vec.back());
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("size, capacity, max_size");
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("vector after pushing 3 new objects");
     vec.push_back("duck");
     vec.push_back("capybara");
     vec.push_back("lizard");
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "After pushing another object" << std::endl;
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("after pushing another object");
     vec.push_back("bruh");
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "After popping the last object" << std::endl;
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("after popping the last object");
     vec.pop_back();
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "After resizing to 8" << std::endl;
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("after resizing to 8");
     vec.resize(8);
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "After resizing to 32" << std::endl;
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("after resizing to 32");
     vec.resize(32);
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
     ft::vector<std::string> v(8, "42");
     vec.assign(v.begin(), v.end());
-    std::cout << "Vector after using assign to change contents" << std::endl;
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "After resizing to 4" << std::endl;
+    printTitle("after using assign to change contents");
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    vec.insert(vec.end() - 2, "24");
+    printTitle("after using insert(vec.end() - 2, \"24\") to change contents");
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    vec.erase(vec.begin(), vec.begin() + 3);
+    printTitle("after using erase(vec.begin(), vec.begin() + 3) to change contents");
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("after resizing to 4");
     vec.resize(4);
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "Changing first and last element of vector using operator[]" << std::endl;
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("changing first and last element of vector using operator[]");
     vec[0] = "frorg";
     vec[3] = "dogue";
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Vector size" << std::endl;
-    std::cout << " - " << vec.size() << std::endl;
-    std::cout << "Vector capacity" << std::endl;
-    std::cout << " - " << vec.capacity() << std::endl;
-    std::cout << "Vector max_size" << std::endl;
-    std::cout << " - " << vec.max_size() << std::endl;
-    std::cout << "Return value of front()" << std::endl;
-    std::cout << " - " << vec.front() << std::endl;
-    std::cout << "Return value of back()" << std::endl;
-    std::cout << " - " << vec.back() << std::endl;
-    std::cout << "Capacity after using reserve(42)" << std::endl;
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("changing second of vector using at()");
+    vec.at(1) = "21";
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
     vec.reserve(42);
-    std::cout << " - " << vec.capacity() << std::endl;
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "Old vector" << std::endl;
-    it = vec.begin();
-    for (; it != vec.end(); it++)
-        std::cout << " - " << *it << std::endl;
+    printTitle("after using reserve(42)");
+    printValue("vector", vecToString<std::string>(vec));
+    printValue("vector size", std::to_string(vec.size()));
+    printValue("vector capacity", std::to_string(vec.capacity()));
+    printValue("vector max_size", std::to_string(vec.max_size()));
+
+    printTitle("after using operator=");
     ft::vector<std::string> ve = vec;
-    ve[0] = "toad";
-    ve[2] = "borgor";
-    std::cout << "New vector" << std::endl;
-    it = ve.begin();
-    for (; it != ve.end(); it++)
-        std::cout << " - " << *it << std::endl;
+    printValue("vector", vecToString<std::string>(ve));
+    printValue("vector size", std::to_string(ve.size()));
+    printValue("vector capacity", std::to_string(ve.capacity()));
+    printValue("vector max_size", std::to_string(ve.max_size()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("before swap");
+    printValue("vector 1", vecToString<std::string>(ve));
+    printValue("vector 2", vecToString<std::string>(vec));
     it = vec.begin();
     vec.swap(ve);
-    std::cout << "New vector after swapping with old vector\niterated with old iterator to make sure its valid" << std::endl;
-    for (; it != ve.end(); it++)
-        std::cout << " - " << *it << std::endl << std::endl;
+    printTitle("after swapping iterated with old iterator to make sure its valid");
+    printValue("vector 1", vecToString<std::string>(ve));
+    printValue("vector 2", vecToString<std::string>(vec));
 
-    std::cout << "New vector created from previous using iterators" << std::endl;
-    ft::vector<std::string> vect(ve.begin() + 1, ve.end() - 1);
-    it = vect.begin();
-    for (; it != vect.end(); it++)
-        std::cout << " - " << *it << std::endl;
-    std::cout << "New vector as a copy" << std::endl;
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    ft::vector<std::string> vect(vec.begin() + 1, vec.end() - 1);
+    printTitle("creating vector with iterators constructor (begin() + 1, end() - 1)");
+    printValue("vector", vecToString<std::string>(vect));
+
+    printTitle("creating vector with a copy constructor");
     ft::vector<std::string> vector(vect);
-    it = vector.begin();
-    for (; it != vector.end(); it++)
-        std::cout << " - " << *it << std::endl;
+    printValue("vector", vecToString<std::string>(vector));
+}
+
+int main(void) {
+    testVector();
 
 //    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
 //    printValue("first", a.first);
 //    printValue("second", a.second);
-
 
     return 0;
 }

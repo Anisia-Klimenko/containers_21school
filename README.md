@@ -77,19 +77,19 @@ Let’s re-implement them!
       - [x] capacity
       - [x] empty
       - [x] reserve
-    - [ ] element access
+    - [x] element access
       - [x] operator[]
-      - [ ] at
-      - [ ] front
-      - [ ] back
+      - [x] at
+      - [x] front
+      - [x] back
     - [ ] modifiers
       - [ ] assign
-      - [ ] push_back
-      - [ ] pop_back
-      - [ ] insert
-      - [ ] erase
-      - [ ] swap
-      - [ ] clear
+      - [x] push_back
+      - [x] pop_back
+      - [x] insert
+      - [x] erase
+      - [x] swap
+      - [x] clear
     - [ ] allocator
       - [ ] get_allocator
     - [ ] non-member functions overloads

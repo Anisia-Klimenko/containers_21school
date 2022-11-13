@@ -82,11 +82,13 @@ namespace ft {
             _alloc.deallocate(_begin, capacity());
         }
 
-        vector& operator= (const vector& x) {
+        vector& operator=(const vector& x) {
+            printValue("here", "operator=");
             if (*this == x) { return *this; }
             clear();
             insert(_begin, x._begin, x._end);
-//            _capacity = x._capacity;
+            _capacity = this->size();
+            std::cout << "cap" << _capacity << std::endl;
             return *this;
         }
 
@@ -107,7 +109,6 @@ namespace ft {
 
         void resize (size_type n, value_type val = value_type()) {
             if (n < size()) {
-//                pointer tmp = _begin + n;
                 while (_end != _begin + n) {
                     _alloc.destroy(_end);
                     _end--;
@@ -156,11 +157,11 @@ namespace ft {
 
         reference at (size_type n) {
             if (n >= size()) { throw std::out_of_range("ft::vector::at"); }
-            return (*this[n]);
+            return ((*this)[n]);
         };
         const_reference at (size_type n) const {
             if (n >= size()) { throw std::out_of_range("ft::vector::at"); }
-            return (*this[n]);
+            return ((*this)[n]);
         };
 
         reference front() { return *_begin; };
@@ -293,8 +294,8 @@ namespace ft {
         };
 
         iterator erase (iterator position) {
-            if (position + 1 != _end) {
-                iterator tmp = position;
+            if (&(*position) + 1 != _end) {
+                pointer tmp = &(*position);
                 while (tmp != _end) {
                     _alloc.destroy(tmp);
                     _alloc.construct(tmp, *(tmp + 1));
@@ -336,14 +337,6 @@ namespace ft {
         pointer         _begin;
         pointer         _end;
         size_type       _capacity;
-
-        void printVec(vector<T, Alloc> x) {
-            std::cout << "[ ";
-            for (ft::vector<T, Alloc>::const_iterator it = x.begin(); it != x.end(); it++) {
-                std::cout << *it << ", ";
-            }
-            std::cout << "]\n";
-        }
     };
 
     template <class T, class Alloc>
