@@ -41,8 +41,23 @@ Let’s re-implement them!
       - [x] relational operators
       - [x] swap
 
+- [x] stack
+  - [x] member functions
+    - [x] constructors
+    - [x] destructor
+    - [x] operator=
+    - [x] element access
+      - [x] top
+    - [x] capacity
+      - [x] empty
+      - [x] size
+    - [x] modifiers
+      - [x] push
+      - [x] pop
+  - [x] non-member functions overloads
+    - [x] relational operators
+
 - [ ] map
-- [ ] stack
 
 ## Bonus containers
 
@@ -82,22 +97,32 @@ Let’s re-implement them!
       - [x] at
       - [x] front
       - [x] back
-    - [ ] modifiers
-      - [ ] assign
+    - [x] modifiers
+      - [x] assign
       - [x] push_back
       - [x] pop_back
       - [x] insert
       - [x] erase
       - [x] swap
       - [x] clear
-    - [ ] allocator
-      - [ ] get_allocator
-    - [ ] non-member functions overloads
-      - [ ] relational operators
-      - [ ] swap
+
+- [ ] stack
+  - [ ] member functions
+    - [ ] constructors
+    - [ ] destructor
+    - [ ] operator=
+    - [ ] element access
+      - [ ] top
+    - [ ] capacity
+      - [ ] empty
+      - [ ] size
+    - [ ] modifiers
+      - [ ] push
+      - [ ] pop
+  - [ ] non-member functions overloads
+    - [ ] relational operators
 
 - [ ] map
-- [ ] stack
 
 - [ ] iterator_traits
 - [ ] reverse_iterator

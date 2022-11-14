@@ -36,6 +36,10 @@ std::string vecToString(ft::vector<T> vec) {
 }
 
 void testVector() {
+    printTitle("----------------------------------------------");
+    printTitle("|                   VECTOR                   |");
+    printTitle("----------------------------------------------");
+
     ft::vector<std::string> vec;
     printTitle("creating empty vector");
     printValue("is empty?", std::to_string(vec.empty()));
@@ -218,7 +222,7 @@ void testVector() {
 }
 
 int main(void) {
-    testVector();
+    // testVector();
 
 //    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
 //    printValue("first", a.first);
