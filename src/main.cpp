@@ -4,13 +4,16 @@
 
 #ifdef STL
 #include <vector>
+#include <stack>
 namespace ft = std;
 #else
 #include "vector.h"
+#include "stack.h"
 #endif
 
 #include <iostream>
 #include <sstream>
+#include <list>
 #include "main.h"
 
 #if defined(TERM) && defined(STL)
@@ -33,6 +36,130 @@ std::string vecToString(ft::vector<T> vec) {
     typename ft::vector<T>::iterator it = vec.begin();
     for (; it != vec.end(); it++) { out << " - " << *it; }
     return out.str();
+}
+
+template <class T, class Container>
+std::string stackToString(ft::stack<T,Container> st) {
+    std::ostringstream out;
+    ft::stack<T,Container> copy;
+    copy = st;
+    typename ft::stack<T,Container>::size_type size = st.size();
+    typename ft::stack<T,Container>::size_type i = 0;
+    for (; i < size; i++) {
+        out << " - " << copy.top();
+        copy.pop();
+    }
+    return out.str();
+}
+
+int main(void) {
+//     testVector();
+     testStack();
+
+//    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
+//    printValue("first", a.first);
+//    printValue("second", a.second);
+
+    return 0;
+}
+
+void testStack() {
+    printTitle("----------------------------------------------");
+    printTitle("|                   STACK                    |");
+    printTitle("----------------------------------------------");
+
+    #ifdef STL
+    #define defContainer std::deque
+    #else
+    #define defContainer ft::vector
+    #endif
+
+    ft::stack<int> vst;
+    printTitle("new empty default <int> stack");
+    printValue("is empty", std::to_string(vst.empty()));
+    printValue("size", std::to_string(vst.size()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    vst.push(21);
+    vst.push(123);
+    vst.push(42);
+    printTitle("after pushing some elements");
+    printValue("stack", stackToString<int, defContainer<int> >(vst));
+    printValue("top", std::to_string(vst.top()));
+    printValue("is empty", std::to_string(vst.empty()));
+    printValue("size", std::to_string(vst.size()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    ft::stack<int> vstack;
+    vstack = vst;
+    printTitle("after using operator=");
+    printValue("stack", stackToString<int, defContainer<int> >(vstack));
+    printValue("top", std::to_string(vstack.top()));
+    printValue("size", std::to_string(vstack.size()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    vst.pop();
+    printTitle("after popping an element");
+    printValue("stack", stackToString<int, defContainer<int> >(vst));
+    printValue("top", std::to_string(vst.top()));
+    printValue("size", std::to_string(vst.size()));
+
+    vst.pop();
+    printTitle("after popping an element");
+    printValue("stack", stackToString<int, defContainer<int> >(vst));
+    printValue("top", std::to_string(vst.top()));
+    printValue("size", std::to_string(vst.size()));
+
+    vst.pop();
+    printTitle("after popping an element");
+    printValue("stack", stackToString<int, defContainer<int> >(vst));
+    printValue("is empty", std::to_string(vst.empty()));
+    printValue("size", std::to_string(vst.size()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    vst.push(21);
+    vst.push(123);
+    vst.push(42);
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    ft::stack<int, std::list<int> > lst;
+    printTitle("new empty std::list <int> stack");
+    printValue("is empty", std::to_string(lst.empty()));
+    printValue("size", std::to_string(lst.size()));
+
+    lst.push(21);
+    lst.push(123);
+    lst.push(42);
+    printTitle("after pushing some elements");
+    printValue("stack", stackToString<int, std::list<int> >(lst));
+    printValue("top", std::to_string(lst.top()));
+    printValue("is empty", std::to_string(lst.empty()));
+    printValue("size", std::to_string(lst.size()));
+
+    lst.pop();
+    printTitle("after popping an element");
+    printValue("stack", stackToString<int, std::list<int> >(lst));
+    printValue("top", std::to_string(lst.top()));
+    printValue("size", std::to_string(lst.size()));
+
+    lst.pop();
+    printTitle("after popping an element");
+    printValue("stack", stackToString<int, std::list<int> >(lst));
+    printValue("top", std::to_string(lst.top()));
+    printValue("size", std::to_string(lst.size()));
+
+    lst.pop();
+    printTitle("after popping an element");
+    printValue("stack", stackToString<int, std::list<int> >(lst));
+    printValue("is empty", std::to_string(lst.empty()));
+    printValue("size", std::to_string(lst.size()));
+
 }
 
 void testVector() {
@@ -219,14 +346,4 @@ void testVector() {
     printTitle("creating vector with a copy constructor");
     ft::vector<std::string> vector(vect);
     printValue("vector", vecToString<std::string>(vector));
-}
-
-int main(void) {
-    // testVector();
-
-//    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
-//    printValue("first", a.first);
-//    printValue("second", a.second);
-
-    return 0;
 }

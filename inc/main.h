@@ -18,4 +18,7 @@
 
 void printValue(std::string key, std::string value);
 
+void testVector();
+void testStack();
+
 #endif //MAIN_H

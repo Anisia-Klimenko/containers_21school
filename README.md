@@ -43,7 +43,7 @@ Let’s re-implement them!
 
 - [x] stack
   - [x] member functions
-    - [x] constructors
+    - [x] constructor
     - [x] destructor
     - [x] operator=
     - [x] element access
@@ -75,8 +75,8 @@ Let’s re-implement them!
 
 ## Tests
 
-- [ ] vector
-  - [ ] member functions
+- [x] vector
+  - [x] member functions
     - [x] constructors
     - [x] destructor
     - [x] operator=
@@ -107,18 +107,17 @@ Let’s re-implement them!
       - [x] clear
 
 - [ ] stack
-  - [ ] member functions
-    - [ ] constructors
-    - [ ] destructor
-    - [ ] operator=
-    - [ ] element access
-      - [ ] top
-    - [ ] capacity
-      - [ ] empty
-      - [ ] size
-    - [ ] modifiers
-      - [ ] push
-      - [ ] pop
+  - [x] member functions
+    - [x] constructor
+    - [x] operator=
+    - [x] element access
+      - [x] top
+    - [x] capacity
+      - [x] empty
+      - [x] size
+    - [x] modifiers
+      - [x] push
+      - [x] pop
   - [ ] non-member functions overloads
     - [ ] relational operators
 
