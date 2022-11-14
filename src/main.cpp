@@ -187,8 +187,9 @@ void testVector() {
     printValue("vector capacity", std::to_string(vec.capacity()));
     printValue("vector max_size", std::to_string(vec.max_size()));
 
+    ft::vector<std::string> ve;
+    ve = vec;
     printTitle("after using operator=");
-    ft::vector<std::string> ve = vec;
     printValue("vector", vecToString<std::string>(ve));
     printValue("vector size", std::to_string(ve.size()));
     printValue("vector capacity", std::to_string(ve.capacity()));

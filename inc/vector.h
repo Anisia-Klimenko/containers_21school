@@ -83,12 +83,10 @@ namespace ft {
         }
 
         vector& operator=(const vector& x) {
-            printValue("here", "operator=");
             if (*this == x) { return *this; }
             clear();
             insert(_begin, x._begin, x._end);
             _capacity = this->size();
-            std::cout << "cap" << _capacity << std::endl;
             return *this;
         }
 
