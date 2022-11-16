@@ -105,9 +105,9 @@ Let’s re-implement them!
       - [x] erase
       - [x] swap
       - [x] clear
-    - [ ] non-member functions overloads
-      - [ ] relational operators
-      - [ ] swap
+    - [x] non-member functions overloads
+      - [x] relational operators
+      - [x] swap
 
 - [x] stack
   - [x] member functions

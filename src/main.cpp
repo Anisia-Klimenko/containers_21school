@@ -53,8 +53,8 @@ std::string stackToString(ft::stack<T,Container> st) {
 }
 
 int main(void) {
-//     testVector();
-     testStack();
+     testVector();
+//     testStack();
 
 //    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
 //    printValue("first", a.first);
@@ -335,11 +335,21 @@ void testVector() {
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    printTitle("before swap");
+    ve.pop_back();
+    printTitle("before swap (member function)");
     printValue("vector 1", vecToString<std::string>(ve));
     printValue("vector 2", vecToString<std::string>(vec));
     it = vec.begin();
     vec.swap(ve);
+    printTitle("after swapping iterated with old iterator to make sure its valid");
+    printValue("vector 1", vecToString<std::string>(ve));
+    printValue("vector 2", vecToString<std::string>(vec));
+
+    printTitle("before swap (non-member function)");
+    printValue("vector 1", vecToString<std::string>(ve));
+    printValue("vector 2", vecToString<std::string>(vec));
+    it = vec.begin();
+    ft::swap(ve, vec);
     printTitle("after swapping iterated with old iterator to make sure its valid");
     printValue("vector 1", vecToString<std::string>(ve));
     printValue("vector 2", vecToString<std::string>(vec));
@@ -353,4 +363,18 @@ void testVector() {
     printTitle("creating vector with a copy constructor");
     ft::vector<std::string> vector(vect);
     printValue("vector", vecToString<std::string>(vector));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    vec.at(2) = "41";
+    printTitle("compare 2 vectors");
+    printValue("vector 1", vecToString<std::string>(ve));
+    printValue("vector 2", vecToString<std::string>(vec));
+    printValue("==", std::to_string(ve == vec));
+    printValue("!=", std::to_string(ve != vec));
+    printValue("> ", std::to_string(ve > vec));
+    printValue("< ", std::to_string(ve < vec));
+    printValue(">=", std::to_string(ve >= vec));
+    printValue("<=", std::to_string(ve <= vec));
+
 }
