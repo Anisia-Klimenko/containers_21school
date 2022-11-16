@@ -121,10 +121,17 @@ void testStack() {
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    vst.push(21);
     vst.push(123);
     vst.push(42);
-
+    printTitle("compare 2 stacks");
+    printValue("stack 1", stackToString<int, defContainer<int> >(vst));
+    printValue("stack 2", stackToString<int, defContainer<int> >(vstack));
+    printValue("==", std::to_string(vst == vstack));
+    printValue("!=", std::to_string(vst != vstack));
+    printValue("> ", std::to_string(vst > vstack));
+    printValue("< ", std::to_string(vst < vstack));
+    printValue(">=", std::to_string(vst >= vstack));
+    printValue("<=", std::to_string(vst <= vstack));
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 

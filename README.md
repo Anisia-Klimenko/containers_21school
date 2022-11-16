@@ -105,8 +105,11 @@ Let’s re-implement them!
       - [x] erase
       - [x] swap
       - [x] clear
+    - [ ] non-member functions overloads
+      - [ ] relational operators
+      - [ ] swap
 
-- [ ] stack
+- [x] stack
   - [x] member functions
     - [x] constructor
     - [x] operator=
@@ -118,8 +121,8 @@ Let’s re-implement them!
     - [x] modifiers
       - [x] push
       - [x] pop
-  - [ ] non-member functions overloads
-    - [ ] relational operators
+  - [x] non-member functions overloads
+    - [x] relational operators
 
 - [ ] map
 
