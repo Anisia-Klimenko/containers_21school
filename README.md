@@ -72,6 +72,8 @@ Let’s re-implement them!
 - [x] equal and/or lexicographical_compare
 - [x] pair
 - [x] make_pair
+- [ ] red-black tree
+- [ ] red-black tree iterator
 
 ## Tests
 
