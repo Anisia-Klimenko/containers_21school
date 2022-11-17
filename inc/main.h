@@ -20,5 +20,6 @@ void printValue(std::string key, std::string value);
 
 void testVector();
 void testStack();
+void testMap();
 
 #endif //MAIN_H
