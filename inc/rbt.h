@@ -29,6 +29,7 @@ namespace ft {
         typedef             size_t                                  size_type;
         typedef             node*                                   iter;
         typedef const       node*                                   const_iter;
+        typedef typename    allocator_type::template rebind<node>::other	node_allocator_type;
 
         struct node {
             pointer data;
@@ -173,7 +174,7 @@ namespace ft {
 
         allocator_type get_allocator() const { return _alloc; }
         key_compare get_comp() const { return _comp; }
-        size_type max_size() const { return _alloc.max_size(); }
+        size_type max_size() const { return _alloc.max_size() / 2; } // bad move
         iter getNil() const { return _nil; }
 
         RBT_Iterator<node, RBT> begin(void) {
