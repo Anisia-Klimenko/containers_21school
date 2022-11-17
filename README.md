@@ -188,14 +188,14 @@ Let’s re-implement them!
       - [x] count
       - [x] lower_bound
       - [x] upper_bound
-  - [ ] non-member functions overloads
-    - [ ] relational operators
+  - [x] non-member functions overloads
+    - [x] relational operators
     - [x] swap
 
 - [ ] iterator_traits
 - [ ] reverse_iterator
 - [ ] enable_if
 - [ ] is_integral
-- [ ] equal and/or lexicographical_compare
-- [ ] pair
-- [ ] make_pair
+- [x] equal and/or lexicographical_compare
+- [x] pair
+- [x] make_pair
