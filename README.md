@@ -57,8 +57,8 @@ Let’s re-implement them!
   - [x] non-member functions overloads
     - [x] relational operators
 
-- [ ] map
-  - [ ] member functions
+- [x] map
+  - [x] member functions
     - [x] constructor
     - [x] destructor
     - [x] operator=
@@ -90,9 +90,9 @@ Let’s re-implement them!
       - [x] equal_range
     - [x] allocator
       - [x] get_allocator
-  - [ ] non-member functions overloads
-    - [ ] relational operators
-    - [ ] swap
+  - [x] non-member functions overloads
+    - [x] relational operators
+    - [x] swap
 
 ## Bonus containers
 
@@ -162,6 +162,35 @@ Let’s re-implement them!
     - [x] relational operators
 
 - [ ] map
+  - [x] member functions
+    - [x] constructor
+    - [x] destructor
+    - [x] operator=
+    - [x] iterators
+      - [x] begin
+      - [x] end
+      - [x] rbegin
+      - [x] rend
+    - [x] capacity
+      - [x] empty
+      - [x] size
+      - [x] max_size
+    - [x] element access
+      - [x] operator[]
+      - [x] at
+    - [x] modifiers
+      - [x] insert
+      - [x] erase
+      - [x] swap
+      - [x] clear
+    - [x] operations
+      - [x] find
+      - [x] count
+      - [x] lower_bound
+      - [x] upper_bound
+  - [ ] non-member functions overloads
+    - [ ] relational operators
+    - [x] swap
 
 - [ ] iterator_traits
 - [ ] reverse_iterator

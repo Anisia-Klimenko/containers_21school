@@ -29,7 +29,6 @@ namespace ft {
         typedef             size_t                                  size_type;
         typedef             node*                                   iter;
         typedef const       node*                                   const_iter;
-        typedef typename    allocator_type::template rebind<node>::other	node_allocator_type;
 
         struct node {
             pointer data;

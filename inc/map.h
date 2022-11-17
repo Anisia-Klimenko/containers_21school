@@ -232,6 +232,38 @@ namespace ft {
     private:
 		tree_type _tree;
 	};
+
+    template <class Key, class T, class Compare, class Allocator>
+    bool operator== (const map<Key, T, Compare, Allocator> & lhs,
+                    const map<Key, T, Compare, Allocator> & rhs) {
+        if (lhs.size() != rhs.size()) { return false; }
+        return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+    }
+    template <class Key, class T, class Compare, class Allocator>
+    bool operator!= (const map<Key, T, Compare, Allocator> & lhs,
+                    const map<Key, T, Compare, Allocator> & rhs) { return !(lhs == rhs); }
+
+    template <class Key, class T, class Compare, class Allocator>
+    bool operator<(const map<Key, T, Compare, Allocator>& lhs,
+                   const map<Key, T, Compare, Allocator>& rhs) {
+        return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    template <class Key, class T, class Compare, class Allocator>
+    bool operator<=(const map<Key, T, Compare, Allocator>& lhs,
+                    const map<Key, T, Compare, Allocator>& rhs) { return !(rhs < lhs); }
+
+    template <class Key, class T, class Compare, class Allocator>
+    bool operator>(const map<Key, T, Compare, Allocator>& lhs,
+                   const map<Key, T, Compare, Allocator>& rhs) { return rhs < lhs; }
+
+    template <class Key, class T, class Compare, class Allocator>
+    bool operator>=(const map<Key, T, Compare, Allocator>& lhs,
+                    const map<Key, T, Compare, Allocator>& rhs) { return !(lhs < rhs); }
+
+    template <class Key, class T, class Compare, class Alloc>
+    void swap( ft::map<Key,T,Compare,Alloc>& lhs,
+               ft::map<Key,T,Compare,Alloc>& rhs ) { lhs.swap(rhs); }
 }
 
 #endif

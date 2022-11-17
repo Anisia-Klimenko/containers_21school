@@ -54,6 +54,16 @@ std::string stackToString(ft::stack<T,Container> st) {
     return out.str();
 }
 
+template <class Key, class Value>
+std::string mapToString(ft::map<Key, Value> mp) {
+    std::ostringstream out;
+    typename ft::map<Key, Value>::iterator it = mp.begin();
+    for(; it != mp.end(); it++) {
+        out << " - { " << it->first << " : \"" << it->second << "\" }";
+    }
+    return out.str();
+}
+
 int main(void) {
 //     testVector();
 //     testStack();
@@ -67,142 +77,170 @@ int main(void) {
 }
 
 void testMap() {
+    printTitle("----------------------------------------------");
+    printTitle("|                    MAP                     |");
+    printTitle("----------------------------------------------");
+
+    printTitle("creating empty map");
     ft::map<int, std::string> mp;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printValue("is empty", std::to_string(mp.empty()));
+    printTitle("putting elements using operator[] and operator=");
     mp[0] = "I";
     mp[1] = "like";
-    printValue("here", "map");
     mp[2] = "frogs";
     mp[3] = ".";
 
-    std::cout << "Insertion and printing using operator[]" << std::endl;
-    std::cout << " - " << mp[0] << std::endl;
-    std::cout << " - " << mp[1] << std::endl;
-    std::cout << " - " << mp[2] << std::endl;
-    std::cout << " - " << mp[3] << std::endl;
+    printTitle("printing elements using iterators (from begin to end)");
+    printValue("map", mapToString<int, std::string>(mp));
 
-    std::cout << "Printing using iterators (from begin to end)" << std::endl;
+    printTitle("printing elements using iterators (from end to begin)");
     ft::map<int, std::string>::iterator it = mp.begin();
-    for (; it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-
-    std::cout << "Printing using iterators (from end to begin)" << std::endl;
     it = --(mp.end());
     for (; it != mp.begin(); it--)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << " - " << it->second << std::endl;
+        std::cout << " - { " << it->first << " : \"" << it->second << "\" }";
+    std::cout << std::endl;
 
-    std::cout << "Printing from a new map after copying" << std::endl;
-    ft::map<int, std::string> mp2 = mp;
-    it = mp2.begin();
-    for (; it != mp2.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-
-    std::cout << "Map size" << std::endl;
-    std::cout << " - " << mp.size() << std::endl;
-    std::cout << "Is Map empty" << std::endl;
-    std::cout << " - " << mp.empty() << std::endl;
-    mp.erase(3);
-    std::cout << "After removing the last element using key" << std::endl;
-    for (it = mp.begin(); it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << "Map size" << std::endl;
-    std::cout << " - " << mp.size() << std::endl;
-    std::cout << "Is Map empty" << std::endl;
-    std::cout << " - " << mp.empty() << std::endl;
-    mp.erase(mp.begin());
-    std::cout << "After removing first element using iterator" << std::endl;
-    for (it = mp.begin(); it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << "Map size" << std::endl;
-    std::cout << " - " << mp.size() << std::endl;
-    std::cout << "Is Map empty" << std::endl;
-    std::cout << " - " << mp.empty() << std::endl;
-    mp.erase(mp.begin(), mp.end());
-    std::cout << "After removing all remaining elements" << std::endl;
-    for (it = mp.begin(); it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << "Map size" << std::endl;
-    std::cout << " - " << mp.size() << std::endl;
-    std::cout << "Is Map empty" << std::endl;
-    std::cout << " - " << mp.empty() << std::endl;
-    mp.insert(mp2.begin(), mp2.end());
-    std::cout << "After inserting range from copied Map" << std::endl;
-    for (it = mp.begin(); it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << "Map size" << std::endl;
-    std::cout << " - " << mp.size() << std::endl;
-    std::cout << "Is Map empty" << std::endl;
-    std::cout << " - " << mp.empty() << std::endl;
-    mp.insert(ft::make_pair(8, "borgor"));
-    std::cout << "After inserting with key 8" << std::endl;
-    for (it = mp.begin(); it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << "Map size" << std::endl;
-    std::cout << " - " << mp.size() << std::endl;
-    std::cout << "Is Map empty" << std::endl;
-    std::cout << " - " << mp.empty() << std::endl;
-    mp.insert(ft::make_pair(6, "duck"));
-    std::cout << "After inserting with key 6" << std::endl;
-    for (it = mp.begin(); it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << "Map size" << std::endl;
-    std::cout << " - " << mp.size() << std::endl;
-    std::cout << "Is Map empty" << std::endl;
-    std::cout << " - " << mp.empty() << std::endl;
-    it = mp.find(6);
-    std::cout << "Using 'find' to get element with key 6" << std::endl;
-    std::cout << " - " << it->second << std::endl;
-    it = mp.find(2);
-    std::cout << "Using 'find' to get element with key 2" << std::endl;
-    std::cout << " - " << it->second << std::endl;
-    it = mp.lower_bound(3);
-    std::cout << "Lower bound of key 3" << std::endl;
-    std::cout << " - " << it->second << std::endl;
-    it = mp.upper_bound(3);
-    std::cout << "Upper bound of key 3" << std::endl;
-    std::cout << " - " << it->second << std::endl;
-    std::cout << "Traversing with reverse iterator" << std::endl;
+    printTitle("printing elements using reverse iterators");
     ft::map<int, std::string>::reverse_iterator rit = mp.rbegin();
     for (; rit != mp.rend(); rit++)
-        std::cout << " - " << rit->second << std::endl;
-    std::cout << "Removing element with key 3, and then checking if previously\ncreated iterator begin() is still valid" << std::endl;
+        std::cout << " - { " << rit->first << " : \"" << rit->second << "\" }";
+    std::cout << std::endl;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("creating map via copy constructor");
+    ft::map<int, std::string> mp2 = mp;
+    printValue("map", mapToString<int, std::string>(mp2));
+    printValue("size", std::to_string(mp2.size()));
+    printValue("max_size", std::to_string(mp2.max_size()));
+
+    printTitle("creating map from iterator range [begin() + 1, end()]");
+    ft::map<int, std::string> mp3(++mp2.begin(), mp2.end());
+    printValue("map", mapToString<int, std::string>(mp3));
+    printValue("size", std::to_string(mp3.size()));
+    printValue("max_size", std::to_string(mp3.max_size()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printValue("access 1 element using operator[]", mp[1]);
+    printValue("access 1 element using at", mp.at(1));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("erasing elements");
+    printValue("before", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp3.size()));
+    printValue("is empty", std::to_string(mp.empty()));
+
+    mp.erase(3);
+    printValue("after erasing element 3", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
+    printValue("is empty", std::to_string(mp.empty()));
+
+    mp.erase(mp.begin());
+    printValue("after erasing begin()", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
+    printValue("is empty", std::to_string(mp.empty()));
+
+    mp.erase(mp.begin(), mp.end());
+    printValue("after erasing [begin(), end()]", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
+    printValue("is empty", std::to_string(mp.empty()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("inserting elements");
+    mp.insert(mp2.begin(), mp2.end());
+    printValue("after inserting from iterator range", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
+    printValue("is empty", std::to_string(mp.empty()));
+
+    mp.insert(ft::make_pair(8, "borgor"));
+    printValue("after inserting a pair", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
+    printValue("is empty", std::to_string(mp.empty()));
+
+    mp.insert(ft::make_pair(6, "duck"));
+    printValue("after inserting one more pair", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
+    printValue("is empty", std::to_string(mp.empty()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printValue("using find(6) to get element with key 6", mp.find(6)->second);
+    printValue("using find(2) to get element with key 2", mp.find(2)->second);
+    printValue("lower bound of key 3", mp.lower_bound(3)->second);
+    printValue("upper bound of key 3", mp.upper_bound(3)->second);
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("erasing element with key 3, and then checking if begin() is still valid");
     it = mp.begin();
     mp.erase(3);
-    for (; it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    it = mp.begin();
-    std::cout << "comparing iterator to begin (should be the same)" << std::endl;
-    std::cout << " - it == begin: " << (it == mp.begin()) << std::endl;
-    std::cout << " - it == begin: " << (it != mp.begin()) << std::endl;
+    printValue("begin() after erasing", it->second);
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("comparing iterator to begin (should be the same)");
+    printValue("it == begin", std::to_string(it == mp.begin()));
+    printValue("it != begin", std::to_string(it != mp.begin()));
     it++;
-    std::cout << "comparing iterator to begin (should be different)" << std::endl;
-    std::cout << " - it == begin: " << (it == mp.begin()) << std::endl;
-    std::cout << " - it == begin: " << (it != mp.begin()) << std::endl;
-    std::cout << "Checking behavior of ft::make_pair" << std::endl;
+    printTitle("comparing changed iterator to begin (should be different)");
+    printValue("it == begin", std::to_string(it == mp.begin()));
+    printValue("it != begin", std::to_string(it != mp.begin()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("checking behavior of ft::make_pair");
     ft::pair<std::string, std::string> p = ft::make_pair("forg", "phroge");
-    std::cout << " - First: " << p.first << std::endl;
-    std::cout << " - Second: " << p.second << std::endl;
-    std:: cout << "Trying to add element with existing key (6)" << std::endl;
+    printValue("first", p.first);
+    printValue("second", p.second);
+
+    printTitle("trying to add element with existing key (6)");
+    printValue("before", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
     mp.insert(ft::make_pair(6, "handborgor"));
-    for (it = mp.begin(); it != mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
+    printValue("after", mapToString<int, std::string>(mp));
+    printValue("size", std::to_string(mp.size()));
+
     ft::map<int, std::string> new_mp;
+    printTitle("create map inserting pairs");
     new_mp.insert(ft::make_pair(1, "I"));
     new_mp.insert(ft::make_pair(2, "enjoy"));
     new_mp.insert(ft::make_pair(3, "containers"));
     new_mp.insert(ft::make_pair(4, "(not really)"));
-    std::cout << "Newly created map" << std::endl;
-    for (it = new_mp.begin(); it != new_mp.end(); it++)
-        std::cout << " - " << it->second << std::endl;
-    std::cout << "Swapping maps and making sure that previously declared iterators are valid" << std::endl;
-    it = new_mp.begin();
-    ft::map<int, std::string>::iterator it2 = mp.begin();
+    printValue("map", mapToString<int, std::string>(new_mp));
+    printValue("size", std::to_string(new_mp.size()));
+
+    printTitle("if key 3 is present");
+    printValue("count(3)", std::to_string(new_mp.count(3)));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("before swap (member function)");
+    printValue("map 1", mapToString<int, std::string>(mp));
+    printValue("map 2", mapToString<int, std::string>(new_mp));
+
     mp.swap(new_mp);
-    std::cout << " - old mp.begin == curent new_mp.begin: " << (it2 == new_mp.begin()) << std::endl;
-    std::cout << " - old new_mp.begin == curent mp.begin: " << (it == mp.begin()) << std::endl;
-    std::cout << "Max_size function (calls max_size of\ncontainers std::allocator)" << std::endl;
-    std::cout << " - " << mp.max_size() << std::endl << std::endl;
+    printTitle("after swap");
+    printValue("map 1", mapToString<int, std::string>(mp));
+    printValue("map 2", mapToString<int, std::string>(new_mp));
+
+    printTitle("before swap (non-member function)");
+    printValue("map 1", mapToString<int, std::string>(mp));
+    printValue("map 2", mapToString<int, std::string>(new_mp));
+
+    ft::swap(mp, new_mp);
+    printTitle("after swap");
+    printValue("map 1", mapToString<int, std::string>(mp));
+    printValue("map 2", mapToString<int, std::string>(new_mp));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+
 }
 
 void testStack() {
