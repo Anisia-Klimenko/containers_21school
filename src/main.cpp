@@ -240,6 +240,11 @@ void testMap() {
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
+    printTitle("check relational operators");
+    printValue("map 1", mapToString<int, std::string>(mp));
+    printValue("map 2", mapToString<int, std::string>(new_mp));
+    printValue("map 1 == map 2", std::to_string(mp == new_mp));
+
 
 }
 
