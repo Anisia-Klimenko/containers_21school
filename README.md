@@ -62,34 +62,34 @@ Let’s re-implement them!
     - [x] constructor
     - [x] destructor
     - [x] operator=
-    - [ ] iterators
+    - [x] iterators
       - [x] begin
       - [x] end
-      - [ ] rbegin
-      - [ ] rend
-    - [ ] capacity
-      - [ ] empty
-      - [ ] size
-      - [ ] max_size
-    - [ ] element access
-      - [ ] operator[]
-      - [ ] at
-    - [ ] modifiers
-      - [ ] insert
+      - [x] rbegin
+      - [x] rend
+    - [x] capacity
+      - [x] empty
+      - [x] size
+      - [x] max_size
+    - [x] element access
+      - [x] operator[]
+      - [x] at
+    - [x] modifiers
+      - [x] insert
       - [x] erase
-      - [ ] swap
+      - [x] swap
       - [x] clear
-    - [ ] observers
-      - [ ] key_compare
-      - [ ] value_compare
-    - [ ] operations
-      - [ ] find
-      - [ ] count
-      - [ ] lower_bound
-      - [ ] upper_bound
-      - [ ] equal_range
-    - [ ] allocator
-      - [ ] get_allocator
+    - [x] observers
+      - [x] key_compare
+      - [x] value_compare
+    - [x] operations
+      - [x] find
+      - [x] count
+      - [x] lower_bound
+      - [x] upper_bound
+      - [x] equal_range
+    - [x] allocator
+      - [x] get_allocator
   - [ ] non-member functions overloads
     - [ ] relational operators
     - [ ] swap
