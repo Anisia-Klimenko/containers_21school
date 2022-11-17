@@ -149,7 +149,7 @@ namespace ft {
         }
 
         T *base(void) const { return _ptr; }
-        const reference operator*(void) const { return *(_ptr->data)}
+        const reference operator*(void) const { return *(_ptr->data); }
         const pointer operator->(void) const { return (&(this->operator*())); }
 
         //not sure what to do when iterator reaches the end

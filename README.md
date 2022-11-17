@@ -58,6 +58,41 @@ Let’s re-implement them!
     - [x] relational operators
 
 - [ ] map
+  - [ ] member functions
+    - [x] constructor
+    - [x] destructor
+    - [x] operator=
+    - [ ] iterators
+      - [x] begin
+      - [x] end
+      - [ ] rbegin
+      - [ ] rend
+    - [ ] capacity
+      - [ ] empty
+      - [ ] size
+      - [ ] max_size
+    - [ ] element access
+      - [ ] operator[]
+      - [ ] at
+    - [ ] modifiers
+      - [ ] insert
+      - [x] erase
+      - [ ] swap
+      - [x] clear
+    - [ ] observers
+      - [ ] key_compare
+      - [ ] value_compare
+    - [ ] operations
+      - [ ] find
+      - [ ] count
+      - [ ] lower_bound
+      - [ ] upper_bound
+      - [ ] equal_range
+    - [ ] allocator
+      - [ ] get_allocator
+  - [ ] non-member functions overloads
+    - [ ] relational operators
+    - [ ] swap
 
 ## Bonus containers
 

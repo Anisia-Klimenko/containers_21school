@@ -9,21 +9,23 @@ namespace ft = std;
 #else
 #include "vector.h"
 #include "stack.h"
+#include "map.h"
 #endif
 
 #include <iostream>
 #include <sstream>
 #include <list>
+#include <map>
 #include "main.h"
 
 #if defined(TERM) && defined(STL)
 void printTitle(std::string TITLE, std::string key, T value) { std::cout << YELLOW << "[ " << TITLE << " ] " << END << std::endl; }
 void printValue(std::string key, std::string value) { std::cout << GRN << key << " : " << END << value << std::endl; }
-void printError(std::string key, std::string value) { std::cerr << RED << key << " : " << END << value << std::endl; }
+void printError(std::string key, std::string value) { std::cerr << RD << key << " : " << END << value << std::endl; }
 #elif TERM
 void printValue(std::string key, std::string value) { std::cout << BLUE << key << " : " << END << value << std::endl; }
 void printTitle(std::string TITLE) { std::cout << YELLOW << "[ " << TITLE << " ] " << END << std::endl; }
-void printError(std::string key, std::string value) { std::cerr << RED << key << " : " << END << value << std::endl; }
+void printError(std::string key, std::string value) { std::cerr << RD << key << " : " << END << value << std::endl; }
 #else
 void printValue(std::string key, std::string value) { std::cout << key << " : " << value << std::endl; }
 void printTitle(std::string TITLE) { std::cout << "[ " << TITLE << " ] " << std::endl; }
