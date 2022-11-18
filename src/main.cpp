@@ -75,13 +75,10 @@ std::string setToString(ft::set<Key> s) {
 }
 
 int main(void) {
-     testVector();
-     testStack();
-     testMap();
-     testSet();
-//    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
-//    printValue("first", a.first);
-//    printValue("second", a.second);
+    testVector();
+    testStack();
+    testMap();
+    testSet();
 
     return 0;
 }

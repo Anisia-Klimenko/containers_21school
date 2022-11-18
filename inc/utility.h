@@ -395,7 +395,9 @@ namespace ft {
     // https://cplusplus.com/reference/utility/make_pair/
     template <class T1,class T2>
     pair<T1,T2> make_pair (T1 x, T2 y) { return ( pair<T1,T2>(x,y) ); }
-//    pair<T1,T2> make_pair (T1 x, T2 y) { return ( pair<T2,T1>(y,x) ); }
+    // test
+//    template <class T>
+//    pair<T,T> make_pair (T x, T y) { return ( pair<T,T>(y,x) ); }
 
     // https://cplusplus.com/reference/utility/swap/
     template <class T>

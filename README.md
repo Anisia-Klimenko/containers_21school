@@ -224,39 +224,39 @@ Let’s re-implement them!
     - [x] relational operators
     - [x] swap
 
-- [ ] set (based on red-black tree)
-  - [ ] member functions
-    - [ ] constructor
-    - [ ] destructor
-    - [ ] operator=
-    - [ ] iterators
-      - [ ] begin
-      - [ ] end
-      - [ ] rbegin
-      - [ ] rend
-    - [ ] capacity
-      - [ ] empty
-      - [ ] size
-      - [ ] max_size
-    - [ ] modifiers
-      - [ ] insert
-      - [ ] erase
-      - [ ] swap
-      - [ ] clear
-    - [ ] observers
-      - [ ] key_compare
-      - [ ] value_compare
-    - [ ] operations
-      - [ ] find
-      - [ ] count
-      - [ ] lower_bound
-      - [ ] upper_bound
-      - [ ] equal_range
-    - [ ] allocator
-      - [ ] get_allocator
-    - [ ] non-member functions overloads
-      - [ ] relational operators
-      - [ ] swap
+- [x] set (based on red-black tree)
+  - [x] member functions
+    - [x] constructor
+    - [x] destructor
+    - [x] operator=
+    - [x] iterators
+      - [x] begin
+      - [x] end
+      - [x] rbegin
+      - [x] rend
+    - [x] capacity
+      - [x] empty
+      - [x] size
+      - [x] max_size
+    - [x] modifiers
+      - [x] insert
+      - [x] erase
+      - [x] swap
+      - [x] clear
+    - [x] observers
+      - [x] key_compare
+      - [x] value_compare
+    - [x] operations
+      - [x] find
+      - [x] count
+      - [x] lower_bound
+      - [x] upper_bound
+      - [x] equal_range
+    - [x] allocator
+      - [x] get_allocator
+    - [x] non-member functions overloads
+      - [x] relational operators
+      - [x] swap
 
 - [x] iterator_traits
 - [x] reverse_iterator

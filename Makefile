@@ -50,8 +50,8 @@ test:		dir
 			@$(BIN)/$(FTNAME) > $(TEST)/$(FTNAME)
 			@$(BIN)/$(STLNAME) > $(TEST)/$(STLNAME)
 			@echo "\n\t$(YELLOW)Test results:$(END)\n"
-			@printf "$(GRN)\t$(TICK) Test results for ft:: and std:: are identical, test passed$(END)"
-			@printf "%-50.40s\r$(RED)" && diff $(TEST)/$(FTNAME) $(TEST)/$(STLNAME)
+			@printf "$(GRN)\t$(TICK) test passed$(END)"
+			@printf "%-50.40s\r\t$(RED)" && diff $(TEST)/$(FTNAME) $(TEST)/$(STLNAME)
 			@echo "\n"
 
 ft:
