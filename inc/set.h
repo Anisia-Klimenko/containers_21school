@@ -106,7 +106,7 @@ namespace ft {
         size_type max_size() const { return _tree.max_size(); };
 
         pair<iterator, bool> insert (const value_type& val) {
-            typename tree_type::node *n = _tree.find(val.first);
+            typename tree_type::node *n = _tree.find(val);
             if (n == _tree.getNil()) {
                 n = _tree.insert(val);
                 return (ft::make_pair(iterator(n, _tree.getNil()), true));

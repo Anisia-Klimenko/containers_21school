@@ -66,11 +66,19 @@ std::string mapToString(ft::map<Key, Value> mp) {
     return out.str();
 }
 
+template <class Key>
+std::string setToString(ft::set<Key> s) {
+    std::ostringstream out;
+    typename ft::set<Key>::iterator it = s.begin();
+    for(; it != s.end(); it++) { out << " - " << *it; }
+    return out.str();
+}
+
 int main(void) {
-//     testVector();
-//     testStack();
-//    testMap();
-    testSet();
+     testVector();
+     testStack();
+     testMap();
+     testSet();
 //    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
 //    printValue("first", a.first);
 //    printValue("second", a.second);
@@ -83,7 +91,146 @@ void testSet() {
     printTitle("|                    SET                     |");
     printTitle("----------------------------------------------");
 
+    printTitle("creating empty set");
+    ft::set<int> s;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printValue("is empty", std::to_string(s.empty()));
+    printTitle("putting elements using insert");
+    s.insert(42);
+    s.insert(21);
+    s.insert(321);
+    s.insert(-42);
+    s.insert(-21);
+    s.insert(-321);
+
+    printTitle("printing elements using iterators");
+    printValue("set", setToString<int>(s));
+
+    printTitle("printing elements using iterators (from end to begin)");
+    ft::set<int>::iterator it = s.begin();
+    it = --(s.end());
+    for (; it != s.begin(); it--)
+        std::cout << " - " << *it;
+    std::cout << std::endl;
+
+    printTitle("printing elements using reverse iterators");
+    ft::set<int>::reverse_iterator rit = s.rbegin();
+    for (; rit != s.rend(); rit++)
+        std::cout << " - " << *it;
+    std::cout << std::endl;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("creating set via copy constructor");
+    ft::set<int> s2 = s;
+    printValue("set", setToString<int>(s2));
+    printValue("size", std::to_string(s2.size()));
+//    printValue("max_size", std::to_string(mp2.max_size()));
+
+    printTitle("creating set from iterator range [begin() + 1, end()]");
+    ft::set<int> s3(++s2.begin(), s2.end());
+    printValue("set", setToString<int>(s2));
+    printValue("size", std::to_string(s2.size()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("erasing elements");
+    printValue("before", setToString<int>(s));
+    printValue("size", std::to_string(s.size()));
+    printValue("is empty", std::to_string(s.empty()));
+
+    s.erase(321);
+    printValue("after erasing element 321", setToString<int>(s));
+    printValue("size", std::to_string(s.size()));
+    printValue("is empty", std::to_string(s.empty()));
+
+    s.erase(s.begin());
+    printValue("after erasing begin()", setToString<int>(s));
+    printValue("size", std::to_string(s.size()));
+    printValue("is empty", std::to_string(s.empty()));
+
+    s.erase(s.begin(), s.end());
+    printValue("after erasing [begin(), end()]", setToString<int>(s));
+    printValue("size", std::to_string(s.size()));
+    printValue("is empty", std::to_string(s.empty()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("inserting elements");
+    s.insert(s2.begin(), s2.end());
+    printValue("after inserting from iterator range", setToString<int>(s));
+    printValue("size", std::to_string(s.size()));
+    printValue("is empty", std::to_string(s.empty()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printValue("using find(42) to get element with key 42", std::to_string(*(s.find(42))));
+    printValue("using find(21) to get element with key 21", std::to_string(*(s.find(21))));
+    printValue("lower bound of key 42", std::to_string(*(s.lower_bound(42))));
+    printValue("upper bound of key 42", std::to_string(*(s.upper_bound(42))));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("erasing element with key 21, and then checking if begin() is still valid");
+    it = s.begin();
+    s.erase(3);
+    printValue("begin() after erasing", std::to_string(*it));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("comparing iterator to begin (should be the same)");
+    printValue("it == begin", std::to_string(it == s.begin()));
+    printValue("it != begin", std::to_string(it != s.begin()));
+    it++;
+    printTitle("comparing changed iterator to begin (should be different)");
+    printValue("it == begin", std::to_string(it == s.begin()));
+    printValue("it != begin", std::to_string(it != s.begin()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("trying to add element with existing key (6)");
+    printValue("before", setToString<int>(s));
+    printValue("size", std::to_string(s.size()));
+    s.insert(21);
+    printValue("after", setToString<int>(s));
+    printValue("size", std::to_string(s.size()));
+
+    printTitle("if key 21 is present");
+    printValue("count(21)", std::to_string(s.count(21)));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("before swap (member function)");
+    printValue("set 1", setToString<int>(s));
+    printValue("set 2", setToString<int>(s2));
+
+    s.swap(s2);
+    printTitle("after swap");
+    printValue("set 1", setToString<int>(s));
+    printValue("set 2", setToString<int>(s2));
+
+    printTitle("before swap (non-member function)");
+    printValue("set 1", setToString<int>(s));
+    printValue("set 2", setToString<int>(s2));
+
+    ft::swap(s, s2);
+    printTitle("after swap");
+    printValue("set 1", setToString<int>(s));
+    printValue("set 2", setToString<int>(s2));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    printTitle("check relational operators");
+    printValue("set 1", setToString<int>(s));
+    printValue("set 2", setToString<int>(s2));
+    printValue("set 1 == set 2", std::to_string(s == s2));
+    printValue("set 1 != set 2", std::to_string(s != s2));
+    printValue("set 1 > set 2 ", std::to_string(s > s2));
+    printValue("set 1 < set 2 ", std::to_string(s < s2));
+    printValue("set 1 >= set 2", std::to_string(s >= s2));
+    printValue("set 1 <= set 2", std::to_string(s <= s2));
 }
 
 void testMap() {

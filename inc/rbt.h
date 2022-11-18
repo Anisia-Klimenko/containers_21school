@@ -540,12 +540,12 @@ namespace ft {
 
 
 	private:
-		node *_root;
-		node *_nil;
-		size_type _size;
-		key_compare _comp;
-		allocator_type _alloc;
-		std::allocator<node> _node_alloc;
+		node*                   _root;
+		node*                   _nil;
+		size_type               _size;
+		key_compare             _comp;
+		allocator_type          _alloc;
+		std::allocator<node>    _node_alloc;
 
 		void _leftRotate(node *x) {
 			node *y = x->right;
