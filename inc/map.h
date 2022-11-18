@@ -46,7 +46,8 @@ namespace ft {
             friend class map;
         };
 
-        explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc) {};
+        explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+            : _tree(comp, alloc) {};
 
         template <class InputIterator>
         map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
@@ -192,9 +193,7 @@ namespace ft {
         const_iterator find (const key_type& k) const { return iterator(_tree.find(k), _tree.getNil()); };
 
         size_type count (const key_type& k) const {
-            if (_tree.find(k) != _tree.getNil()) {
-                return 1;
-            }
+            if (_tree.find(k) != _tree.getNil()) { return 1; }
             return 0;
         };
 
@@ -202,26 +201,26 @@ namespace ft {
             iterator it = begin();
             while (it != end() && (_tree.get_comp())((*it).first, k))
                 it++;
-            return (it);
+            return it;
         };
         const_iterator lower_bound (const key_type& k) const {
             const_iterator it = begin();
             while (it != end() && (_tree.get_comp())((*it).first, k))
                 it++;
-            return (it);
+            return it;
         };
 
         iterator upper_bound(const key_type &k) {
             iterator it = begin();
             while (it != end() && !((_tree.get_comp())(k, (*it).first)))
                 it++;
-            return (it);
+            return it;
         };
         const_iterator upper_bound(const key_type &k) const {
             const_iterator it = begin();
             while (it != end() && !((_tree.get_comp())(k, (*it).first)))
                 it++;
-            return (it);
+            return it;
         };
 
         pair<iterator, iterator> equal_range(const key_type &key) { return ft::make_pair(lower_bound(key), upper_bound(key)); };
@@ -262,8 +261,8 @@ namespace ft {
                     const map<Key, T, Compare, Allocator>& rhs) { return !(lhs < rhs); }
 
     template <class Key, class T, class Compare, class Alloc>
-    void swap( ft::map<Key,T,Compare,Alloc>& lhs,
-               ft::map<Key,T,Compare,Alloc>& rhs ) { lhs.swap(rhs); }
+    void swap( ft::map<Key, T, Compare, Alloc>& lhs,
+               ft::map<Key, T, Compare, Alloc>& rhs ) { lhs.swap(rhs); }
 }
 
 #endif

@@ -10,12 +10,14 @@ namespace ft = std;
 #include "vector.h"
 #include "stack.h"
 #include "map.h"
+#include "set.h"
 #endif
 
 #include <iostream>
 #include <sstream>
 #include <list>
 #include <map>
+#include <set>
 #include "main.h"
 
 #if defined(TERM) && defined(STL)
@@ -67,13 +69,21 @@ std::string mapToString(ft::map<Key, Value> mp) {
 int main(void) {
 //     testVector();
 //     testStack();
-    testMap();
-
+//    testMap();
+    testSet();
 //    ft::pair<std::string, std::string> a = ft::make_pair("el1", "el2");
 //    printValue("first", a.first);
 //    printValue("second", a.second);
 
     return 0;
+}
+
+void testSet() {
+    printTitle("----------------------------------------------");
+    printTitle("|                    SET                     |");
+    printTitle("----------------------------------------------");
+
+
 }
 
 void testMap() {
